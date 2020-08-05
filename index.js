@@ -12,9 +12,11 @@ app.use(cors());
 
 // importacion de rutas
 const auth = require("./routes/auth/auth");
+const pais = require("./routes/pais/pais");
 
 //rutas
 app.use("/api/auth", auth);
+app.use("/api/pais", pais);
 
 app.listen(process.env.PORT || 5000, () =>
   console.log(
