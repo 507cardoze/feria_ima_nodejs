@@ -2,7 +2,7 @@ const Joi = require("@hapi/joi");
 //validacion de datos del formulario authenticacion
 const crearPaisValidation = (data) => {
   const schema = Joi.object({
-    nomesclatura: Joi.string().min(3).max(25).required().messages({
+    nomesclatura: Joi.string().min(3).max(3).required().messages({
       "string.base": `Nomenclatura debe ser de tipo texto.`,
       "string.empty": `Nomenclatura no debe ser ir vacio.`,
       "string.min": `Nomenclatura debe ser mayor a {#limit} caracteres.`,
@@ -24,7 +24,6 @@ const crearPaisValidation = (data) => {
       "any.required": `Nacionalidad es un campo requerido.`,
     }),
     estado: Joi.boolean().required().messages({
-      "string.empty": `Estado no debe ser ir vacio.`,
       "any.required": `Nomesclatura es un campo requerido.`,
     }),
   });
