@@ -3,8 +3,18 @@ require("moment/locale/es.js");
 
 const getCorregimientos = () => {
   return database
-    .select("*")
-    .from("corregimiento")
+    .select(
+      "c.id_corregimiento",
+      "c.id_provincia",
+      "c.id_distrito",
+      "c.nombre_corregimiento",
+      "c.estado",
+      "d.nombre_distrito",
+      "p.nombre_provincia"
+    )
+    .from("corregimiento as c")
+    .innerJoin("distrito as d", "d.id_distrito", "c.id_distrito")
+    .innerJoin("provincia as p", "p.id_provincia", "c.id_provincia")
     .orderBy("id_corregimiento", "desc")
     .then((corregimiento) => {
       return corregimiento;
@@ -37,8 +47,18 @@ const crearCorregimiento = (
 
 const getCorregimientoByid = (id_corregimiento) => {
   return database
-    .select("*")
-    .from("corregimiento")
+    .select(
+      "c.id_corregimiento",
+      "c.id_provincia",
+      "c.id_distrito",
+      "c.nombre_corregimiento",
+      "c.estado",
+      "d.nombre_distrito",
+      "p.nombre_provincia"
+    )
+    .from("corregimiento as c")
+    .innerJoin("distrito as d", "d.id_distrito", "c.id_distrito")
+    .innerJoin("provincia as p", "p.id_provincia", "c.id_provincia")
     .where("id_corregimiento", "=", id_corregimiento)
     .then((corregimiento) => {
       return corregimiento;
