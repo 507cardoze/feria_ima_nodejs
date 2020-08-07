@@ -14,11 +14,17 @@ app.use(cors());
 const auth = require("./routes/auth/auth");
 const pais = require("./routes/pais/pais");
 const provincias = require("./routes/provincias/provincias");
+const corregimientos = require("./routes/corregimientos/corregimientos");
+const distritos = require("./routes/distritos/distritos");
+const clientes = require("./routes/clientes/clientes");
+const productos = require("./routes/productos/productos");
 
 //rutas
 app.use("/api/auth", auth);
 app.use("/api/pais", pais);
 app.use("/api/provincias", provincias);
+app.use("/api/corregimientos", corregimientos);
+app.use("/api/distritos", distritos);
 
 app.listen(process.env.PORT || 5000, () =>
   console.log(

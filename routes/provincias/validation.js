@@ -35,6 +35,14 @@ const updateProvinciaValidation = (data) => {
     estado: Joi.boolean().required().messages({
       "any.required": `Estado es un campo requerido.`,
     }),
+    id_pais: Joi.string().min(3).max(3).required().messages({
+      "string.base": `Pais debe ser de tipo texto.`,
+      "string.empty": `Pais no debe ser ir vacio.`,
+      "string.min": `Pais debe ser mayor a {#limit} caracteres.`,
+      "string.max": `Pais no debe ser mayor a {#limit} caracteres.`,
+      "any.required": `Pais es un campo requerido.`,
+    }),
+    id_provincia: Joi.number().integer().required(),
   });
   return schema.validate(data);
 };

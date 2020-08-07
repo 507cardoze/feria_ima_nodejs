@@ -48,8 +48,8 @@ router.post("/crear", verify, async (req, res) => {
 
 router.put("/update", verify, async (req, res) => {
   const { id_provincia, id_pais, nombre_provincia, estado } = req.body;
-  // const { error } = await crearProvinciaValidation(req.body);
-  // if (error) return res.status(400).json(error.details[0].message);
+  const { error } = await updateProvinciaValidation(req.body);
+  if (error) return res.status(400).json(error.details[0].message);
   try {
     const queryProvincias = await updateProvincia(
       id_provincia,
