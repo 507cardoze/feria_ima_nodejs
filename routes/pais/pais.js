@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { crearPaisValidation } = require("./validation");
+const { crearPaisValidation, updatePaisValidation } = require("./validation");
 const {
   crearPais,
   getPaises,
@@ -48,6 +48,8 @@ router.post("/crear", verify, async (req, res) => {
 
 router.put("/update", verify, async (req, res) => {
   const { nomesclatura, pais, nacionalidad, estado } = req.body;
+  const { error } = await updatePaisValidation(req.body);
+  if (error) return res.status(400).json(error.details[0].message);
   try {
     const queryPaises = await updatePais(
       nomesclatura,

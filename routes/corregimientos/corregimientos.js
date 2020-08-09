@@ -1,5 +1,8 @@
 const router = require("express").Router();
-const {} = require("./validation");
+const {
+  crearCorregimientoValidation,
+  updateCorregimientoValidation,
+} = require("./validation");
 const {
   getCorregimientos,
   crearCorregimiento,
@@ -29,8 +32,8 @@ router.get("/buscar/:id_corregimiento", verify, async (req, res) => {
 
 router.post("/crear", verify, async (req, res) => {
   const { id_provincia, id_distrito, nombre_corregimiento, estado } = req.body;
-  // const { error } = await crearProvinciaValidation(req.body);
-  // if (error) return res.status(400).json(error.details[0].message);
+  const { error } = await crearCorregimientoValidation(req.body);
+  if (error) return res.status(400).json(error.details[0].message);
   try {
     const query = await crearCorregimiento(
       id_provincia,
@@ -52,8 +55,8 @@ router.put("/update", verify, async (req, res) => {
     nombre_corregimiento,
     estado,
   } = req.body;
-  // const { error } = await updateProvinciaValidation(req.body);
-  // if (error) return res.status(400).json(error.details[0].message);
+  const { error } = await updateCorregimientoValidation(req.body);
+  if (error) return res.status(400).json(error.details[0].message);
   try {
     const query = await updateCorregimiento(
       id_corregimiento,
