@@ -8,13 +8,29 @@ const {
   crearCorregimiento,
   getCorregimientoByid,
   updateCorregimiento,
+  getCorregimientosWithPages,
+  paginateQueryResults,
 } = require("./corregimientos.model");
 const verify = require("../../verifytoken");
 
-router.get("/", verify, async (req, res) => {
+router.get("/filtrada", async (req, res) => {
+  const page = parseInt(req.query.page);
+  const limit = parseInt(req.query.limit);
+  const results = {};
+
   try {
-    const query = await getCorregimientos();
-    res.status(200).json(query);
+    if (req.query.page === undefined && req.query.limit === undefined) {
+      results.results = await getCorregimientos();
+      res.status(200).json(results);
+    } else {
+      const query = await paginateQueryResults(
+        page,
+        limit,
+        getCorregimientos,
+        getCorregimientosWithPages
+      );
+      res.status(200).json(query);
+    }
   } catch (error) {
     res.status(500).json(error);
   }
