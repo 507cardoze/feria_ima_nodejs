@@ -63,6 +63,14 @@ const updateCorregimientoValidation = (data) => {
   return schema.validate(data);
 };
 
+const searchTextValidation = (data) => {
+  const schema = Joi.object({
+    text: Joi.string().min(3).max(100).required(),
+  });
+  return schema.validate(data);
+};
+
 //exportacion de funciones de validacion
 module.exports.crearCorregimientoValidation = crearCorregimientoValidation;
 module.exports.updateCorregimientoValidation = updateCorregimientoValidation;
+module.exports.searchTextValidation = searchTextValidation;

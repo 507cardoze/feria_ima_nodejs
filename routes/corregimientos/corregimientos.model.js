@@ -126,7 +126,6 @@ const paginateQueryResults = async (page, limit, getAll, getWithPages) => {
   const total = await getAll();
 
   results.total = total.length;
-  //results.total_paginas = total.length / limit;
 
   if (endIndex < total.length) {
     results.next = {
@@ -146,6 +145,31 @@ const paginateQueryResults = async (page, limit, getAll, getWithPages) => {
   return results;
 };
 
+const getCorregimientoBySearch = (text) => {
+  return database
+    .select(
+      "c.id_corregimiento",
+      "c.id_provincia",
+      "c.id_distrito",
+      "c.nombre_corregimiento",
+      "c.estado",
+      "d.nombre_distrito",
+      "p.nombre_provincia"
+    )
+    .from("corregimiento as c")
+    .innerJoin("distrito as d", "d.id_distrito", "c.id_distrito")
+    .innerJoin("provincia as p", "p.id_provincia", "c.id_provincia")
+    .where("c.nombre_corregimiento", "like", `%${text}%`)
+    .orWhere("d.nombre_distrito", "like", `%${text}%`)
+    .orWhere("p.nombre_provincia", "like", `%${text}%`)
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 //exportacion de funciones verificacion y consulta de data de usuario
 module.exports.getCorregimientos = getCorregimientos;
 module.exports.crearCorregimiento = crearCorregimiento;
@@ -153,3 +177,4 @@ module.exports.getCorregimientoByid = getCorregimientoByid;
 module.exports.updateCorregimiento = updateCorregimiento;
 module.exports.getCorregimientosWithPages = getCorregimientosWithPages;
 module.exports.paginateQueryResults = paginateQueryResults;
+module.exports.getCorregimientoBySearch = getCorregimientoBySearch;

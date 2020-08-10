@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   crearCorregimientoValidation,
   updateCorregimientoValidation,
+  searchTextValidation,
 } = require("./validation");
 const {
   getCorregimientos,
@@ -10,6 +11,7 @@ const {
   updateCorregimiento,
   getCorregimientosWithPages,
   paginateQueryResults,
+  getCorregimientoBySearch,
 } = require("./corregimientos.model");
 const verify = require("../../verifytoken");
 
@@ -33,6 +35,18 @@ router.get("/filtrada", async (req, res) => {
     }
   } catch (error) {
     res.status(500).json(error);
+  }
+});
+
+router.get("/searchField/:text", async (req, res) => {
+  const { text } = req.params;
+  const { error } = await searchTextValidation(req.params);
+  if (error) return res.status(400).json(error.details[0].message);
+  try {
+    const query = await getCorregimientoBySearch(text);
+    res.status(200).json(query);
+  } catch (error) {
+    res.status(400).json(error);
   }
 });
 
