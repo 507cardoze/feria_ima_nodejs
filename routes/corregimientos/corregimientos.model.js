@@ -170,6 +170,29 @@ const getCorregimientoBySearch = (text) => {
     });
 };
 
+const getCorregimientoByIdDistrito = (id_distrito) => {
+  return database
+    .select(
+      "c.id_corregimiento",
+      "c.id_provincia",
+      "c.id_distrito",
+      "c.nombre_corregimiento",
+      "c.estado",
+      "d.nombre_distrito",
+      "p.nombre_provincia"
+    )
+    .from("corregimiento as c")
+    .innerJoin("distrito as d", "d.id_distrito", "c.id_distrito")
+    .innerJoin("provincia as p", "p.id_provincia", "c.id_provincia")
+    .where("c.id_distrito", "=", id_distrito)
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 //exportacion de funciones verificacion y consulta de data de usuario
 module.exports.getCorregimientos = getCorregimientos;
 module.exports.crearCorregimiento = crearCorregimiento;
@@ -178,3 +201,4 @@ module.exports.updateCorregimiento = updateCorregimiento;
 module.exports.getCorregimientosWithPages = getCorregimientosWithPages;
 module.exports.paginateQueryResults = paginateQueryResults;
 module.exports.getCorregimientoBySearch = getCorregimientoBySearch;
+module.exports.getCorregimientoByIdDistrito = getCorregimientoByIdDistrito;

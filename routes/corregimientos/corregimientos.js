@@ -12,6 +12,7 @@ const {
   getCorregimientosWithPages,
   paginateQueryResults,
   getCorregimientoBySearch,
+  getCorregimientoByIdDistrito,
 } = require("./corregimientos.model");
 const verify = require("../../verifytoken");
 
@@ -49,10 +50,22 @@ router.get("/searchField/:text", async (req, res) => {
   }
 });
 
-router.get("/buscar/:id_corregimiento", verify, async (req, res) => {
-  const { id_corregimiento } = req.params;
+router.get("/buscarCorregimientoByDistrito/:id_distrito", async (req, res) => {
+  const { id_distrito } = req.params;
+  // const { error } = await searchTextValidation(req.params);
+  // if (error) return res.status(400).json(error.details[0].message);
   try {
-    const query = await getCorregimientoByid(id_corregimiento);
+    const query = await getCorregimientoByIdDistrito(id_distrito);
+    res.status(200).json(query);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+});
+
+router.get("/buscarDistritos/:id_provincia", async (req, res) => {
+  const { id_provincia } = req.params;
+  try {
+    const query = await getCorregimientoByid(id_provincia);
     res.status(200).json(query);
   } catch (error) {
     res.status(500).json(error);

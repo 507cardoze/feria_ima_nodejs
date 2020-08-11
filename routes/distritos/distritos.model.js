@@ -65,8 +65,22 @@ const updateDistrito = (id_provincia, nombre_distrito, id_distrito, estado) => {
     });
 };
 
+const getDistritoByIdProvincia = (id_provincia) => {
+  return database
+    .select("*")
+    .from("distrito")
+    .where("id_provincia", "=", id_provincia)
+    .then((distrito) => {
+      return distrito;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 //exportacion de funciones verificacion y consulta de data de usuario
 module.exports.getDistritos = getDistritos;
 module.exports.crearDistrito = crearDistrito;
 module.exports.getDistritoByid = getDistritoByid;
 module.exports.updateDistrito = updateDistrito;
+module.exports.getDistritoByIdProvincia = getDistritoByIdProvincia;
