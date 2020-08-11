@@ -62,7 +62,7 @@ router.get("/buscarCorregimientoByDistrito/:id_distrito", async (req, res) => {
   }
 });
 
-router.get("/buscarDistritos/:id_provincia", async (req, res) => {
+router.get("/buscar/:id_provincia", async (req, res) => {
   const { id_provincia } = req.params;
   try {
     const query = await getCorregimientoByid(id_provincia);
