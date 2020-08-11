@@ -18,6 +18,8 @@ const corregimientos = require("./routes/corregimientos/corregimientos");
 const distritos = require("./routes/distritos/distritos");
 const clientes = require("./routes/clientes/clientes");
 const productos = require("./routes/productos/productos");
+const feria = require("./routes/ferias/ferias");
+const tipo_ajustes = require("./routes/tipos_ajustes/tipos_ajustes");
 
 //rutas
 app.use("/api/auth", auth);
@@ -25,6 +27,8 @@ app.use("/api/pais", pais);
 app.use("/api/provincias", provincias);
 app.use("/api/corregimientos", corregimientos);
 app.use("/api/distritos", distritos);
+app.use("/api/feria", feria);
+app.use("/api/tipo-ajustes", tipo_ajustes);
 
 app.listen(process.env.PORT || 5000, () =>
   console.log(

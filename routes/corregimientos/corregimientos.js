@@ -18,12 +18,11 @@ const verify = require("../../verifytoken");
 router.get("/filtrada", async (req, res) => {
   const page = parseInt(req.query.page);
   const limit = parseInt(req.query.limit);
-  const results = {};
 
   try {
     if (req.query.page === undefined && req.query.limit === undefined) {
-      results.results = await getCorregimientos();
-      res.status(200).json(results);
+      const query = await getCorregimientos();
+      res.status(200).json(query);
     } else {
       const query = await paginateQueryResults(
         page,
