@@ -13,6 +13,7 @@ const {
   paginateQueryResults,
   getCorregimientoBySearch,
   getCorregimientoByIdDistrito,
+  getCorregimientoByMeta,
 } = require("./corregimientos.model");
 const verify = require("../../verifytoken");
 
@@ -52,8 +53,6 @@ router.get("/searchField/:text", async (req, res) => {
 
 router.get("/buscarCorregimientoByDistrito/:id_distrito", async (req, res) => {
   const { id_distrito } = req.params;
-  // const { error } = await searchTextValidation(req.params);
-  // if (error) return res.status(400).json(error.details[0].message);
   try {
     const query = await getCorregimientoByIdDistrito(id_distrito);
     res.status(200).json(query);
@@ -77,6 +76,13 @@ router.post("/crear", verify, async (req, res) => {
   const { error } = await crearCorregimientoValidation(req.body);
   if (error) return res.status(400).json(error.details[0].message);
   try {
+    const verificacion = await getCorregimientoByMeta(
+      id_provincia,
+      id_distrito,
+      nombre_corregimiento
+    );
+    if (verificacion.length === 1)
+      return res.status(400).json("Registro ya existe");
     const query = await crearCorregimiento(
       id_provincia,
       id_distrito,

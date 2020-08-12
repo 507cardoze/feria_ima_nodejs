@@ -29,7 +29,7 @@ router.get("/filtrada", verify, async (req, res) => {
   }
 });
 
-router.get("/searchField/:text", async (req, res) => {
+router.get("/searchField/:text", verify, async (req, res) => {
   const { text } = req.params;
   try {
     const query = await getPaisBySearch(text);

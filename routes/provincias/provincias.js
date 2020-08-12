@@ -15,7 +15,7 @@ const {
 } = require("./provincias.model");
 const verify = require("../../verifytoken");
 
-router.get("/filtrada", async (req, res) => {
+router.get("/filtrada", verify, async (req, res) => {
   const page = parseInt(req.query.page);
   const limit = parseInt(req.query.limit);
   if (req.query.page === undefined && req.query.limit === undefined) {
@@ -32,7 +32,7 @@ router.get("/filtrada", async (req, res) => {
   }
 });
 
-router.get("/searchField/:text", async (req, res) => {
+router.get("/searchField/:text", verify, async (req, res) => {
   const { text } = req.params;
   try {
     const query = await getProvinciasBySearch(text);

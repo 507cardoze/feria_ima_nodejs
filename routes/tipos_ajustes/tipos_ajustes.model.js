@@ -149,6 +149,19 @@ const getTipoAjustesBySearch = (text) => {
     });
 };
 
+const getTipoByMeta = (id_pais, nombre_pais, nombre_nacionalidad) => {
+  return database
+    .select("*")
+    .from("tipos_ajuste")
+    .where("id_tipo_ajuste", "=", id_tipo_ajuste)
+    .then((tipo) => {
+      return tipo;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 //exportacion de funciones verificacion y consulta de data de usuario
 module.exports.getTipoAjustes = getTipoAjustes;
 module.exports.crearTipoAjustes = crearTipoAjustes;
@@ -157,3 +170,4 @@ module.exports.updateTipoAjustes = updateTipoAjustes;
 module.exports.getTipoAjustesWithPages = getTipoAjustesWithPages;
 module.exports.paginateQueryResults = paginateQueryResults;
 module.exports.getTipoAjustesBySearch = getTipoAjustesBySearch;
+module.exports.getTipoByMeta = getTipoByMeta;
