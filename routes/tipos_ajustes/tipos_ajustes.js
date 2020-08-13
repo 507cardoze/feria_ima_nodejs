@@ -11,6 +11,8 @@ const {
   getTipoByMeta,
 } = require("./tipos_ajustes.model");
 const verify = require("../../verifytoken");
+const moment = require("moment");
+require("moment/locale/es.js");
 
 router.get("/filtrada", verify, async (req, res) => {
   const page = parseInt(req.query.page);
@@ -61,7 +63,7 @@ router.post("/crear", verify, async (req, res) => {
   try {
     const verificacion = await getTipoByMeta(id_tipo_ajuste, descripcion);
     if (verificacion.length === 1)
-      return res.status(400).json("Registro ya existe");
+      return res.status(400).json("Registro ya existe.");
     const query = await crearTipoAjustes(
       id_tipo_ajuste,
       descripcion,
@@ -70,6 +72,7 @@ router.post("/crear", verify, async (req, res) => {
     );
     res.status(200).json("success");
   } catch (error) {
+    console.log(error);
     res.status(500).json(error);
   }
 });

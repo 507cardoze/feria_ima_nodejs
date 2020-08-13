@@ -53,7 +53,7 @@ const crearTipoAjustes = (
       id_tipo_ajuste: id_tipo_ajuste,
       descripcion: descripcion,
       usuario_creacion: usuario_creacion,
-      fecha_creacion: moment.format(),
+      fecha_creacion: moment().format(),
       estado: estado,
     })
     .then((data) => {
@@ -149,11 +149,12 @@ const getTipoAjustesBySearch = (text) => {
     });
 };
 
-const getTipoByMeta = (id_pais, nombre_pais, nombre_nacionalidad) => {
+const getTipoByMeta = (id_tipo_ajuste, descripcion) => {
   return database
     .select("*")
     .from("tipos_ajuste")
     .where("id_tipo_ajuste", "=", id_tipo_ajuste)
+    .andWhere("descripcion", "=", descripcion)
     .then((tipo) => {
       return tipo;
     })
