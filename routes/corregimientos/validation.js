@@ -9,7 +9,6 @@ const crearCorregimientoValidation = (data) => {
       "string.max": `Corregimiento no debe ser mayor a {#limit} caracteres.`,
       "any.required": `Corregimiento es un campo requerido.`,
     }),
-
     id_distrito: Joi.number().integer().required().messages({
       "number.base": `Distrito no debe ser ir vacio.`,
       "number.empty": `Distrito no debe ser ir vacio.`,
