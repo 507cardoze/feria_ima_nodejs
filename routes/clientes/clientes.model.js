@@ -150,7 +150,11 @@ const getClienteBySearch = (text) => {
     .orderBy("id_cliente", "desc")
     .where("num_documento", "like", `%${text}%`)
     .orWhere("nombre", "like", `%${text}%`)
+<<<<<<< HEAD
     .orWhere("apellido", "like", `%${text}%`)
+=======
+    .orWhere("nacionalidad", "like", `%${text}%`)
+>>>>>>> 0535fd02d550567a5257e50dbd2f8a00c3998fc2
     .orWhere("lugar_nacimiento", "like", `%${text}%`)
     .orWhere("direccion", "like", `%${text}%`)
     .then((data) => {

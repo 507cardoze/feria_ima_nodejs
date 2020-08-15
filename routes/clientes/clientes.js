@@ -65,7 +65,11 @@ router.post("/crear", verify, async (req, res) => {
     fecha_nacimiento,
     nacionalidad,
     lugar_nacimiento,
+<<<<<<< HEAD
     tipo_sangre,
+=======
+    tipo_sange,
+>>>>>>> 0535fd02d550567a5257e50dbd2f8a00c3998fc2
     direccion,
     fecha_expiracion,
     usuario_creacion,
@@ -93,7 +97,11 @@ router.post("/crear", verify, async (req, res) => {
       fecha_nacimiento,
       nacionalidad,
       lugar_nacimiento,
+<<<<<<< HEAD
       tipo_sangre,
+=======
+      tipo_sange,
+>>>>>>> 0535fd02d550567a5257e50dbd2f8a00c3998fc2
       direccion,
       fecha_expiracion,
       usuario_creacion
