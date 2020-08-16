@@ -21,6 +21,7 @@ const productos = require("./routes/productos/productos");
 const feria = require("./routes/ferias/ferias");
 const tipo_ajustes = require("./routes/tipos_ajustes/tipos_ajustes");
 const inventarios = require("./routes/inventario/inventario");
+const inventarios_ajuste = require("./routes/inventario-ajuste/inventario-ajuste");
 
 //rutas
 app.use("/api/auth", auth);
@@ -33,6 +34,7 @@ app.use("/api/tipo-ajustes", tipo_ajustes);
 app.use("/api/clientes", clientes);
 app.use("/api/productos", productos);
 app.use("/api/inventarios", inventarios);
+app.use("/api/inventarios-ajuste", inventarios_ajuste);
 
 app.listen(process.env.PORT || 5000, () =>
   console.log(
