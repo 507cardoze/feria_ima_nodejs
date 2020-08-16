@@ -4,9 +4,37 @@ require("moment/locale/es.js");
 
 const getInventario = () => {
   return database
-    .select("*")
-    .from("inventario_feria")
-    .orderBy("id_inventario", "desc")
+    .select(
+      "i.id_inventario",
+      "i.id_pais",
+      "i.id_provincia",
+      "i.id_distrito",
+      "i.id_corregimiento",
+      "i.id_feria",
+      "i.id_producto",
+      "i.total_inicial_disponible",
+      "i.disponible_real",
+      "i.total_max_diario",
+      "i.frecuencia_compra_dias",
+      "i.fecha_inicio",
+      "i.fecha_fin",
+      "i.estado",
+      "i.observacion",
+      "i.usuario_creacion",
+      "i.fecha_creacion",
+      "p.nombre_provincia",
+      "d.nombre_distrito",
+      "c.nombre_corregimiento",
+      "f.nombre_feria",
+      "pr.nombre_productos"
+    )
+    .from("inventario_feria as i")
+    .innerJoin("provincia as p", "p.id_provincia", "i.id_provincia")
+    .innerJoin("distrito as d", "d.id_distrito", "i.id_distrito")
+    .innerJoin("corregimiento as c", "c.id_corregimiento", "i.id_corregimiento")
+    .innerJoin("feria as f", "f.id_feria", "i.id_feria")
+    .innerJoin("productos as pr", "pr.id_productos", "i.id_producto")
+    .orderBy("i.id_inventario", "desc")
     .then((inventarios) => {
       return inventarios;
     })
@@ -17,11 +45,39 @@ const getInventario = () => {
 
 const getInventarioWithPages = (offset, limit) => {
   return database
-    .select("*")
-    .from("inventario_feria")
+    .select(
+      "i.id_inventario",
+      "i.id_pais",
+      "i.id_provincia",
+      "i.id_distrito",
+      "i.id_corregimiento",
+      "i.id_feria",
+      "i.id_producto",
+      "i.total_inicial_disponible",
+      "i.disponible_real",
+      "i.total_max_diario",
+      "i.frecuencia_compra_dias",
+      "i.fecha_inicio",
+      "i.fecha_fin",
+      "i.estado",
+      "i.observacion",
+      "i.usuario_creacion",
+      "i.fecha_creacion",
+      "p.nombre_provincia",
+      "d.nombre_distrito",
+      "c.nombre_corregimiento",
+      "f.nombre_feria",
+      "pr.nombre_productos"
+    )
+    .from("inventario_feria as i")
+    .innerJoin("provincia as p", "p.id_provincia", "i.id_provincia")
+    .innerJoin("distrito as d", "d.id_distrito", "i.id_distrito")
+    .innerJoin("corregimiento as c", "c.id_corregimiento", "i.id_corregimiento")
+    .innerJoin("feria as f", "f.id_feria", "i.id_feria")
+    .innerJoin("productos as pr", "pr.id_productos", "i.id_producto")
     .limit(limit)
     .offset(offset)
-    .orderBy("id_inventario", "desc")
+    .orderBy("i.id_inventario", "desc")
     .then((inventarios) => {
       return inventarios;
     })
@@ -76,9 +132,37 @@ const crearInventario = (
 
 const getInventarioByid = (id_inventario) => {
   return database
-    .select("*")
-    .from("inventario_feria")
-    .where("id_inventario", "=", id_inventario)
+    .select(
+      "i.id_inventario",
+      "i.id_pais",
+      "i.id_provincia",
+      "i.id_distrito",
+      "i.id_corregimiento",
+      "i.id_feria",
+      "i.id_producto",
+      "i.total_inicial_disponible",
+      "i.disponible_real",
+      "i.total_max_diario",
+      "i.frecuencia_compra_dias",
+      "i.fecha_inicio",
+      "i.fecha_fin",
+      "i.estado",
+      "i.observacion",
+      "i.usuario_creacion",
+      "i.fecha_creacion",
+      "p.nombre_provincia",
+      "d.nombre_distrito",
+      "c.nombre_corregimiento",
+      "f.nombre_feria",
+      "pr.nombre_productos"
+    )
+    .from("inventario_feria as i")
+    .innerJoin("provincia as p", "p.id_provincia", "i.id_provincia")
+    .innerJoin("distrito as d", "d.id_distrito", "i.id_distrito")
+    .innerJoin("corregimiento as c", "c.id_corregimiento", "i.id_corregimiento")
+    .innerJoin("feria as f", "f.id_feria", "i.id_feria")
+    .innerJoin("productos as pr", "pr.id_productos", "i.id_producto")
+    .where("i.id_inventario", "=", id_inventario)
     .then((inventario) => {
       return inventario;
     })
@@ -161,10 +245,43 @@ const paginateQueryResults = async (page, limit, getAll, getWithPages) => {
 
 const getInventarioBySearch = (text) => {
   return database
-    .select("*")
-    .from("inventario_feria")
-    .orderBy("id_inventario", "desc")
-    .where("observacion", "like", `%${text}%`)
+    .select(
+      "i.id_inventario",
+      "i.id_pais",
+      "i.id_provincia",
+      "i.id_distrito",
+      "i.id_corregimiento",
+      "i.id_feria",
+      "i.id_producto",
+      "i.total_inicial_disponible",
+      "i.disponible_real",
+      "i.total_max_diario",
+      "i.frecuencia_compra_dias",
+      "i.fecha_inicio",
+      "i.fecha_fin",
+      "i.estado",
+      "i.observacion",
+      "i.usuario_creacion",
+      "i.fecha_creacion",
+      "p.nombre_provincia",
+      "d.nombre_distrito",
+      "c.nombre_corregimiento",
+      "f.nombre_feria",
+      "pr.nombre_productos"
+    )
+    .from("inventario_feria as i")
+    .innerJoin("provincia as p", "p.id_provincia", "i.id_provincia")
+    .innerJoin("distrito as d", "d.id_distrito", "i.id_distrito")
+    .innerJoin("corregimiento as c", "c.id_corregimiento", "i.id_corregimiento")
+    .innerJoin("feria as f", "f.id_feria", "i.id_feria")
+    .innerJoin("productos as pr", "pr.id_productos", "i.id_producto")
+    .where("i.observacion", "like", `%${text}%`)
+    .orWhere("p.nombre_provincia", "like", `%${text}%`)
+    .orWhere("d.nombre_distrito", "like", `%${text}%`)
+    .orWhere("c.nombre_corregimiento", "like", `%${text}%`)
+    .orWhere("f.nombre_feria", "like", `%${text}%`)
+    .orWhere("pr.nombre_productos", "like", `%${text}%`)
+    .orWhere("i.id_pais", "like", `%${text}%`)
     .then((data) => {
       return data;
     })

@@ -102,7 +102,7 @@ const crearInventarioValidation = (data) => {
 
 const updateInventarioValidation = (data) => {
   const schema = Joi.object({
-    id_inventario: Joi.string().required().messages({
+    id_inventario: Joi.number().integer().required().messages({
       "string.base": `id_inventario debe ser de tipo texto.`,
       "string.empty": `id_inventario no debe ser ir vacio.`,
       "string.min": `id_inventario debe ser mayor a {#limit} caracteres.`,

@@ -72,7 +72,6 @@ router.post("/crear", verify, async (req, res) => {
     );
     res.status(200).json("success");
   } catch (error) {
-    console.log(error);
     res.status(500).json(error);
   }
 });
