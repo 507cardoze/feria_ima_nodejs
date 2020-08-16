@@ -30,6 +30,7 @@ app.use("/api/distritos", distritos);
 app.use("/api/feria", feria);
 app.use("/api/tipo-ajustes", tipo_ajustes);
 app.use("/api/clientes", clientes);
+app.use("/api/productos", productos);
 
 app.listen(process.env.PORT || 5000, () =>
   console.log(
