@@ -1,5 +1,8 @@
 const router = require("express").Router();
-const {} = require("./validation");
+const {
+  crearClienteValidation,
+  updateClienteValidation,
+} = require("./validation");
 const {
   getClientes,
   getClientesWithPages,
@@ -68,20 +71,15 @@ router.post("/crear", verify, async (req, res) => {
     tipo_sangre,
     direccion,
     fecha_expiracion,
-    usuario_creacion,
   } = req.body;
-  //   const { error } = await crearTipoValidation(req.body);
-  //   if (error) return res.status(400).json(error.details[0].message);
+  const { error } = await crearClienteValidation(req.body);
+  if (error) return res.status(400).json(error.details[0].message);
+
   try {
     const verificacion = await getClientesByMeta(
       num_documento,
       nombre,
-      apellido,
-      genero,
-      fecha_nacimiento,
-      nacionalidad,
-      lugar_nacimiento,
-      fecha_expiracion
+      apellido
     );
     if (verificacion.length === 1)
       return res.status(400).json("Registro ya existe.");
@@ -96,21 +94,44 @@ router.post("/crear", verify, async (req, res) => {
       tipo_sangre,
       direccion,
       fecha_expiracion,
-      usuario_creacion
+      "ADMIN"
     );
     res.status(200).json("success");
   } catch (error) {
-    console.log(error);
     res.status(500).json(error);
   }
 });
 
 router.put("/update", verify, async (req, res) => {
-  const { id_tipo_ajuste, descripcion, estado } = req.body;
-  //   const { error } = await updateTipoValidation(req.body);
-  //   if (error) return res.status(400).json(error.details[0].message);
+  const {
+    num_documento,
+    nombre,
+    apellido,
+    genero,
+    fecha_nacimiento,
+    nacionalidad,
+    lugar_nacimiento,
+    tipo_sangre,
+    direccion,
+    fecha_expiracion,
+    id_cliente,
+  } = req.body;
+  const { error } = await updateClienteValidation(req.body);
+  if (error) return res.status(400).json(error.details[0].message);
   try {
-    const query = await updateTipoAjustes(id_tipo_ajuste, descripcion, estado);
+    const query = await updateTipoAjustes(
+      num_documento,
+      nombre,
+      apellido,
+      genero,
+      fecha_nacimiento,
+      nacionalidad,
+      lugar_nacimiento,
+      tipo_sangre,
+      direccion,
+      fecha_expiracion,
+      id_cliente
+    );
     res.status(200).json("success");
   } catch (error) {
     res.status(500).json(error);

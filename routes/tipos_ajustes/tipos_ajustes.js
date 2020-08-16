@@ -57,7 +57,7 @@ router.get("/buscar/:id_tipo_ajuste", verify, async (req, res) => {
 });
 
 router.post("/crear", verify, async (req, res) => {
-  const { id_tipo_ajuste, descripcion, estado, usuario_creacion } = req.body;
+  const { id_tipo_ajuste, descripcion, estado } = req.body;
   const { error } = await crearTipoValidation(req.body);
   if (error) return res.status(400).json(error.details[0].message);
   try {
@@ -68,7 +68,7 @@ router.post("/crear", verify, async (req, res) => {
       id_tipo_ajuste,
       descripcion,
       estado,
-      usuario_creacion
+      "ADMIN"
     );
     res.status(200).json("success");
   } catch (error) {

@@ -16,11 +16,6 @@ const crearTipoValidation = (data) => {
       "string.max": `Descripcion no debe ser mayor a {#limit} caracteres.`,
       "any.required": `Descripcion es un campo requerido.`,
     }),
-    usuario_creacion: Joi.string().required().messages({
-      "string.base": `Descripcion debe ser de tipo texto.`,
-      "string.empty": `Descripcion no debe ser ir vacio.`,
-      "any.required": `Descripcion es un campo requerido.`,
-    }),
     estado: Joi.boolean().required().messages({
       "any.required": `Estado es un campo requerido.`,
     }),

@@ -38,7 +38,7 @@ const crearClientes = (
   fecha_nacimiento,
   nacionalidad,
   lugar_nacimiento,
-  tipo_sange,
+  tipo_sangre,
   direccion,
   fecha_expiracion,
   usuario_creacion
@@ -52,7 +52,7 @@ const crearClientes = (
       fecha_nacimiento: fecha_nacimiento,
       nacionalidad: nacionalidad,
       lugar_nacimiento: lugar_nacimiento,
-      tipo_sange: tipo_sange,
+      tipo_sangre: tipo_sangre,
       direccion: direccion,
       fecha_expiracion: fecha_expiracion,
       usuario_creacion: usuario_creacion,
@@ -80,7 +80,6 @@ const getClienteByid = (id_cliente) => {
 };
 
 const updateTipoAjustes = (
-  id_cliente,
   num_documento,
   nombre,
   apellido,
@@ -88,9 +87,10 @@ const updateTipoAjustes = (
   fecha_nacimiento,
   nacionalidad,
   lugar_nacimiento,
-  tipo_sange,
+  tipo_sangre,
   direccion,
-  fecha_expiracion
+  fecha_expiracion,
+  id_cliente
 ) => {
   return database("clientes")
     .update({
@@ -101,7 +101,7 @@ const updateTipoAjustes = (
       fecha_nacimiento: fecha_nacimiento,
       nacionalidad: nacionalidad,
       lugar_nacimiento: lugar_nacimiento,
-      tipo_sange: tipo_sange,
+      tipo_sangre: tipo_sangre,
       direccion: direccion,
       fecha_expiracion: fecha_expiracion,
     })
@@ -161,25 +161,13 @@ const getClienteBySearch = (text) => {
     });
 };
 
-const getClientesByMeta = (
-  num_documento,
-  nombre,
-  apellido,
-  fecha_nacimiento,
-  nacionalidad,
-  lugar_nacimiento,
-  fecha_expiracion
-) => {
+const getClientesByMeta = (num_documento, nombre, apellido) => {
   return database
     .select("*")
     .from("clientes")
     .where("num_documento", "=", num_documento)
     .andWhere("nombre", "=", nombre)
     .andWhere("apellido", "=", apellido)
-    .andWhere("fecha_nacimiento", "=", fecha_nacimiento)
-    .andWhere("nacionalidad", "=", nacionalidad)
-    .andWhere("lugar_nacimiento", "=", lugar_nacimiento)
-    .andWhere("fecha_expiracion", "=", fecha_expiracion)
     .then((data) => {
       return data;
     })

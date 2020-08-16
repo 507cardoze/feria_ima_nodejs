@@ -201,6 +201,29 @@ const getFeriaBySearch = (text) => {
     });
 };
 
+const getFeriaByMeta = async (
+  nombre_feria,
+  id_provincia,
+  id_distrito,
+  id_corregimiento,
+  descripcion_lugar
+) => {
+  return database
+    .select("*")
+    .from("feria")
+    .where("nombre_feria", "=", nombre_feria)
+    .andWhere("id_provincia", "=", id_provincia)
+    .andWhere("id_distrito", "=", id_distrito)
+    .andWhere("id_corregimiento", "=", id_corregimiento)
+    .andWhere("descripcion_lugar", "=", descripcion_lugar)
+    .then((data) => {
+      return data;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 //exportacion de funciones verificacion y consulta de data de usuario
 module.exports.getFeria = getFeria;
 module.exports.crearFeria = crearFeria;
@@ -209,3 +232,4 @@ module.exports.updateFeria = updateFeria;
 module.exports.getFeriaWithPages = getFeriaWithPages;
 module.exports.paginateQueryResults = paginateQueryResults;
 module.exports.getFeriaBySearch = getFeriaBySearch;
+module.exports.getFeriaByMeta = getFeriaByMeta;

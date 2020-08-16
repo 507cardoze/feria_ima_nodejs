@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {} = require("./validation");
+const { crearFeriaValidation, updateFeriaValidation } = require("./validation");
 const {
   getFeria,
   crearFeria,
@@ -8,6 +8,7 @@ const {
   getFeriaWithPages,
   paginateQueryResults,
   getFeriaBySearch,
+  getFeriaByMeta,
 } = require("./ferias.model");
 const verify = require("../../verifytoken");
 
@@ -33,8 +34,6 @@ router.get("/filtrada", async (req, res) => {
 });
 router.get("/searchField/:text", async (req, res) => {
   const { text } = req.params;
-  // const { error } = await searchTextValidation(req.params);
-  //if (error) return res.status(400).json(error.details[0].message);
   try {
     const query = await getFeriaBySearch(text);
     res.status(200).json(query);
@@ -61,11 +60,19 @@ router.post("/crear", verify, async (req, res) => {
     descripcion_lugar,
     descripcion_feria,
     estado,
-    user,
   } = req.body;
-  // const { error } = await crearCorregimientoValidation(req.body);
-  // if (error) return res.status(400).json(error.details[0].message);
+  const { error } = await crearFeriaValidation(req.body);
+  if (error) return res.status(400).json(error.details[0].message);
   try {
+    const verificacion = await getFeriaByMeta(
+      nombre_feria,
+      id_provincia,
+      id_distrito,
+      id_corregimiento,
+      descripcion_lugar
+    );
+    if (verificacion.length === 1)
+      return res.status(400).json("Registro ya existe.");
     const query = await crearFeria(
       nombre_feria,
       id_provincia,
@@ -74,7 +81,7 @@ router.post("/crear", verify, async (req, res) => {
       descripcion_lugar,
       descripcion_feria,
       estado,
-      user
+      "ADMIN"
     );
     res.status(200).json("success");
   } catch (error) {
@@ -93,8 +100,8 @@ router.put("/update", verify, async (req, res) => {
     descripcion_feria,
     estado,
   } = req.body;
-  // const { error } = await updateCorregimientoValidation(req.body);
-  // if (error) return res.status(400).json(error.details[0].message);
+  const { error } = await updateFeriaValidation(req.body);
+  if (error) return res.status(400).json(error.details[0].message);
   try {
     const query = await updateFeria(
       id_feria,

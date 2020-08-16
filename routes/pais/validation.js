@@ -24,7 +24,7 @@ const crearPaisValidation = (data) => {
       "any.required": `Nacionalidad es un campo requerido.`,
     }),
     estado: Joi.boolean().required().messages({
-      "any.required": `Nomesclatura es un campo requerido.`,
+      "any.required": `Estado es un campo requerido.`,
     }),
   });
   return schema.validate(data);
