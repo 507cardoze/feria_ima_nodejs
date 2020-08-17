@@ -30,7 +30,6 @@ router.get("/filtrada", verify, async (req, res) => {
         getInventarioAjuste,
         getInventarioAjusteWithPages
       );
-      console.log(query);
       res.status(200).json(query);
     }
   } catch (error) {

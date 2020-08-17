@@ -16,7 +16,7 @@ const crearInventarioAjusteValidation = (data) => {
       "number.max": `Feria no debe ser mayor a {#limit} caracteres.`,
       "any.required": `Feria es un campo requerido.`,
     }),
-    id_tipo_ajuste: Joi.number().integer().required().messages({
+    id_tipo_ajuste: Joi.string().min(1).max(100).required().messages({
       "string.base": `Tipo de ajuste debe ser de tipo texto.`,
       "string.empty": `Tipo de ajuste no debe ser ir vacio.`,
       "string.min": `Tipo de ajuste debe ser mayor a {#limit} caracteres.`,
@@ -64,7 +64,7 @@ const updateInventarioAjusteValidation = (data) => {
       "number.max": `Feria no debe ser mayor a {#limit} caracteres.`,
       "any.required": `Feria es un campo requerido.`,
     }),
-    id_tipo_ajuste: Joi.number().integer().required().messages({
+    id_tipo_ajuste: Joi.string().min(1).max(100).required().messages({
       "string.base": `Tipo de ajuste debe ser de tipo texto.`,
       "string.empty": `Tipo de ajuste no debe ser ir vacio.`,
       "string.min": `Tipo de ajuste debe ser mayor a {#limit} caracteres.`,

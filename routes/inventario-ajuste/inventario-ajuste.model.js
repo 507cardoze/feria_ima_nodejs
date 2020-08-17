@@ -17,7 +17,7 @@ const getInventarioAjuste = () => {
     )
     .from("inventario_feria_ajuste as i")
     .innerJoin("feria as f", "f.id_feria", "i.id_feria")
-    .orderBy("i.id_inventario", "desc")
+    .orderBy("i.id", "desc")
     .then((inventarios_ajuste) => {
       return inventarios_ajuste;
     })
@@ -43,7 +43,7 @@ const getInventarioAjusteWithPages = (offset, limit) => {
     .innerJoin("feria as f", "f.id_feria", "i.id_feria")
     .limit(limit)
     .offset(offset)
-    .orderBy("i.id_inventario", "desc")
+    .orderBy("i.id", "desc")
     .then((inventarios_ajuste) => {
       return inventarios_ajuste;
     })
@@ -67,7 +67,7 @@ const crearInventarioAjuste = (
       id_tipo_ajuste: id_tipo_ajuste,
       cantidad_ajuste: cantidad_ajuste,
       observacion: observacion,
-      user: user,
+      usuario_ajuste: user,
       fecha_ajuste: moment().format(),
     })
     .then((data) => {
