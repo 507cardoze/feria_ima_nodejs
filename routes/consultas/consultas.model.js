@@ -17,14 +17,30 @@ const getConsumoTotalPorFeria = () => {
     });
 };
 
+// const getConsumoTotalPorFeriaPorFecha = (desde, hasta) => {
+//   return database
+//     .select("f.nombre_feria as feria")
+//     .count("t.id_transaccion as consumo")
+//     .from("feria as f")
+//     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
+//     .where("t.fecha_compra", "<", desde)
+//     .orWhere("t.fecha_compra", ">", hasta)
+//     .groupBy("f.nombre_feria")
+//     .then((consumos) => {
+//       return consumos;
+//     })
+//     .catch((err) => {
+//       return err;
+//     });
+// };
+
 const getConsumoTotalPorFeriaPorFecha = (desde, hasta) => {
   return database
     .select("f.nombre_feria as feria")
     .count("t.id_transaccion as consumo")
     .from("feria as f")
     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
-    .where("t.fecha_compra", "<=", desde)
-    .orWhere("t.fecha_compra", ">=", hasta)
+    .whereBetween("t.fecha_compra", [desde, hasta])
     .groupBy("f.nombre_feria")
     .then((consumos) => {
       return consumos;
@@ -56,8 +72,7 @@ const getConsumoByFeriaByFecha = (id_feria, desde, hasta) => {
     .count("t.id_transaccion as consumo")
     .from("feria as f")
     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
-    .where("t.fecha_compra", "<=", desde)
-    .orWhere("t.fecha_compra", ">=", hasta)
+    .whereBetween("t.fecha_compra", [desde, hasta])
     .andWhere("f.id_feria", "=", id_feria)
     .groupBy("f.nombre_feria")
     .then((consumos) => {
@@ -70,8 +85,21 @@ const getConsumoByFeriaByFecha = (id_feria, desde, hasta) => {
 
 const getAmountofTrans = () => {
   return database
-    .count("id_transaccion as cantidad")
+    .count("id_transaccion as consumo")
     .from("inventario_transaccion")
+    .then((consumos) => {
+      return consumos;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+const getAmountofTransFecha = (desde, hasta) => {
+  return database
+    .count("id_transaccion as consumo")
+    .from("inventario_transaccion")
+    .whereBetween("fecha_compra", [desde, hasta])
     .then((consumos) => {
       return consumos;
     })
@@ -86,3 +114,4 @@ module.exports.getConsumoTotalPorFeriaPorFecha = getConsumoTotalPorFeriaPorFecha
 module.exports.getConsumoByFeria = getConsumoByFeria;
 module.exports.getConsumoByFeriaByFecha = getConsumoByFeriaByFecha;
 module.exports.getAmountofTrans = getAmountofTrans;
+module.exports.getAmountofTransFecha = getAmountofTransFecha;
