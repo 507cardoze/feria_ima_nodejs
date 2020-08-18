@@ -214,6 +214,42 @@ const updateInventario = (
     });
 };
 
+const updateInventarioEntrada = (
+  disponible_real,
+  id_inventario,
+  cantidad_ajuste
+) => {
+  return database("inventario_feria")
+    .update({
+      disponible_real: disponible_real + cantidad_ajuste,
+    })
+    .where("id_inventario", "=", id_inventario)
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
+const updateInventarioSalida = (
+  disponible_real,
+  id_inventario,
+  cantidad_ajuste
+) => {
+  return database("inventario_feria")
+    .update({
+      disponible_real: disponible_real - cantidad_ajuste,
+    })
+    .where("id_inventario", "=", id_inventario)
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      return error;
+    });
+};
+
 const paginateQueryResults = async (page, limit, getAll, getWithPages) => {
   const offset = limit * page - limit;
 
@@ -336,3 +372,5 @@ module.exports.updateInventario = updateInventario;
 module.exports.paginateQueryResults = paginateQueryResults;
 module.exports.getInventarioBySearch = getInventarioBySearch;
 module.exports.getInventarioByMeta = getInventarioByMeta;
+module.exports.updateInventarioEntrada = updateInventarioEntrada;
+module.exports.updateInventarioSalida = updateInventarioSalida;

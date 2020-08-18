@@ -13,6 +13,12 @@ const {
   getInventarioAjusteBySearch,
   getInventarioAjusteByMeta,
 } = require("./inventario-ajuste.model");
+
+const {
+  getInventarioByid,
+  updateInventarioEntrada,
+  updateInventarioSalida,
+} = require("../inventario/inventario.model");
 const verify = require("../../verifytoken");
 
 router.get("/filtrada", verify, async (req, res) => {
@@ -69,23 +75,50 @@ router.post("/crear", verify, async (req, res) => {
   if (error) return res.status(400).json(error.details[0].message);
 
   try {
-    const verificacion = await getInventarioAjusteByMeta(
-      id_inventario,
-      id_feria,
-      id_tipo_ajuste,
-      cantidad_ajuste,
-      observacion
-    );
-    if (verificacion.length === 1)
-      return res.status(400).json("Registro ya existe.");
-    const query = await crearInventarioAjuste(
-      id_inventario,
-      id_feria,
-      id_tipo_ajuste,
-      cantidad_ajuste,
-      observacion,
-      "ADMIN"
-    );
+    // const verificacion = await getInventarioAjusteByMeta(
+    //   id_inventario,
+    //   id_feria,
+    //   id_tipo_ajuste,
+    //   cantidad_ajuste,
+    //   observacion
+    // );
+    // if (verificacion.length === 1)
+    //   return res.status(400).json("Registro ya existe.");
+
+    const inventario = await getInventarioByid(id_inventario);
+    if (inventario.length === 0)
+      return res.status(400).json("no existe el inventario.");
+
+    if (id_tipo_ajuste === "EN") {
+      const query = await crearInventarioAjuste(
+        id_inventario,
+        id_feria,
+        id_tipo_ajuste,
+        cantidad_ajuste,
+        observacion,
+        "ADMIN"
+      );
+      const queryEntrada = await updateInventarioEntrada(
+        inventario[0].disponible_real,
+        id_inventario,
+        cantidad_ajuste
+      );
+    }
+    if (id_tipo_ajuste === "SA") {
+      const query = await crearInventarioAjuste(
+        id_inventario,
+        id_feria,
+        id_tipo_ajuste,
+        cantidad_ajuste,
+        observacion,
+        "ADMIN"
+      );
+      const querySalida = await updateInventarioSalida(
+        inventario[0].disponible_real,
+        id_inventario,
+        cantidad_ajuste
+      );
+    }
     res.status(200).json("success");
   } catch (error) {
     res.status(500).json(error);
