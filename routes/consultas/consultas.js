@@ -10,7 +10,7 @@ const {
 } = require("./consultas.model");
 const verify = require("../../verifytoken");
 
-router.get("/total-ferias", async (req, res) => {
+router.get("/total-ferias", verify, async (req, res) => {
   const desde = req.query.desde;
   const hasta = req.query.hasta;
 
@@ -23,7 +23,7 @@ router.get("/total-ferias", async (req, res) => {
   }
 });
 
-router.get("/feria/:id_feria", async (req, res) => {
+router.get("/feria/:id_feria", verify, async (req, res) => {
   const { id_feria } = req.params;
   const desde = req.query.desde;
   const hasta = req.query.hasta;
@@ -37,7 +37,7 @@ router.get("/feria/:id_feria", async (req, res) => {
   }
 });
 
-router.get("/total-transacciones", async (req, res) => {
+router.get("/total-transacciones", verify, async (req, res) => {
   const desde = req.query.desde;
   const hasta = req.query.hasta;
 

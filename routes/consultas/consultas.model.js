@@ -5,9 +5,10 @@ require("moment/locale/es.js");
 const getConsumoTotalPorFeria = () => {
   return database
     .select("f.nombre_feria as feria")
-    .count("t.id_transaccion as consumo")
+    .count("t.entregado as consumo")
     .from("feria as f")
     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
+    .where("t.entregado", "=", 1)
     .groupBy("f.nombre_feria")
     .then((consumos) => {
       return consumos;
@@ -37,9 +38,10 @@ const getConsumoTotalPorFeria = () => {
 const getConsumoTotalPorFeriaPorFecha = (desde, hasta) => {
   return database
     .select("f.nombre_feria as feria")
-    .count("t.id_transaccion as consumo")
+    .count("t.entregado as consumo")
     .from("feria as f")
     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
+    .where("t.entregado", "=", 1)
     .whereBetween("t.fecha_compra", [desde, hasta])
     .groupBy("f.nombre_feria")
     .then((consumos) => {
@@ -53,10 +55,11 @@ const getConsumoTotalPorFeriaPorFecha = (desde, hasta) => {
 const getConsumoByFeria = (id_feria) => {
   return database
     .select("f.nombre_feria as feria")
-    .count("t.id_transaccion as consumo")
+    .count("t.entregado as consumo")
     .from("feria as f")
     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
     .where("f.id_feria", "=", id_feria)
+    .andWhere("t.entregado", "=", 1)
     .groupBy("f.nombre_feria")
     .then((consumos) => {
       return consumos;
@@ -69,11 +72,12 @@ const getConsumoByFeria = (id_feria) => {
 const getConsumoByFeriaByFecha = (id_feria, desde, hasta) => {
   return database
     .select("f.nombre_feria as feria")
-    .count("t.id_transaccion as consumo")
+    .count("t.entregado as consumo")
     .from("feria as f")
     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
     .whereBetween("t.fecha_compra", [desde, hasta])
     .andWhere("f.id_feria", "=", id_feria)
+    .andWhere("t.entregado", "=", 1)
     .groupBy("f.nombre_feria")
     .then((consumos) => {
       return consumos;
@@ -85,8 +89,9 @@ const getConsumoByFeriaByFecha = (id_feria, desde, hasta) => {
 
 const getAmountofTrans = () => {
   return database
-    .count("id_transaccion as consumo")
+    .count("entregado as consumo")
     .from("inventario_transaccion")
+    .where("entregado", "=", 1)
     .then((consumos) => {
       return consumos;
     })
@@ -97,8 +102,9 @@ const getAmountofTrans = () => {
 
 const getAmountofTransFecha = (desde, hasta) => {
   return database
-    .count("id_transaccion as consumo")
+    .count("entregado as consumo")
     .from("inventario_transaccion")
+    .where("entregado", "=", 1)
     .whereBetween("fecha_compra", [desde, hasta])
     .then((consumos) => {
       return consumos;
