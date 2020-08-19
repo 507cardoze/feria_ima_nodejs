@@ -2,6 +2,8 @@ const { database } = require("../../database/database");
 const moment = require("moment");
 require("moment/locale/es.js");
 
+//consumo
+
 const getConsumoTotalPorFeria = () => {
   return database
     .select("f.nombre_feria as feria")
@@ -10,6 +12,7 @@ const getConsumoTotalPorFeria = () => {
     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
     .where("t.entregado", "=", 1)
     .groupBy("f.nombre_feria")
+    .orderBy("f.nombre_feria", "asc")
     .then((consumos) => {
       return consumos;
     })
@@ -17,23 +20,6 @@ const getConsumoTotalPorFeria = () => {
       return err;
     });
 };
-
-// const getConsumoTotalPorFeriaPorFecha = (desde, hasta) => {
-//   return database
-//     .select("f.nombre_feria as feria")
-//     .count("t.id_transaccion as consumo")
-//     .from("feria as f")
-//     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
-//     .where("t.fecha_compra", "<", desde)
-//     .orWhere("t.fecha_compra", ">", hasta)
-//     .groupBy("f.nombre_feria")
-//     .then((consumos) => {
-//       return consumos;
-//     })
-//     .catch((err) => {
-//       return err;
-//     });
-// };
 
 const getConsumoTotalPorFeriaPorFecha = (desde, hasta) => {
   return database
@@ -44,6 +30,7 @@ const getConsumoTotalPorFeriaPorFecha = (desde, hasta) => {
     .where("t.entregado", "=", 1)
     .whereBetween("t.fecha_compra", [desde, hasta])
     .groupBy("f.nombre_feria")
+    .orderBy("f.nombre_feria", "asc")
     .then((consumos) => {
       return consumos;
     })
@@ -61,6 +48,7 @@ const getConsumoByFeria = (id_feria) => {
     .where("f.id_feria", "=", id_feria)
     .andWhere("t.entregado", "=", 1)
     .groupBy("f.nombre_feria")
+    .orderBy("f.nombre_feria", "asc")
     .then((consumos) => {
       return consumos;
     })
@@ -79,6 +67,7 @@ const getConsumoByFeriaByFecha = (id_feria, desde, hasta) => {
     .andWhere("f.id_feria", "=", id_feria)
     .andWhere("t.entregado", "=", 1)
     .groupBy("f.nombre_feria")
+    .orderBy("f.nombre_feria", "asc")
     .then((consumos) => {
       return consumos;
     })
@@ -114,6 +103,86 @@ const getAmountofTransFecha = (desde, hasta) => {
     });
 };
 
+//clientes
+
+const getClientesTotalesPorFeria = () => {
+  //dashboard
+  return database
+    .select("a.id_feria", "b.nombre_feria")
+    .countDistinct("a.id_cliente as clientes")
+    .from("inventario_transaccion as a")
+    .innerJoin("feria as b", "b.id_feria", "a.id_feria")
+    .innerJoin("productos as c", "a.id_producto", "c.id_productos")
+    .groupBy("a.id_feria", "b.nombre_feria")
+    .orderBy("b.nombre_feria", "asc")
+    .then((clientes) => {
+      return clientes;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+const getClientesTotalesPorFeriaPorFecha = (desde, hasta) => {
+  //consulta
+  return database
+    .select("a.id_feria", "b.nombre_feria")
+    .countDistinct("a.id_cliente as clientes")
+    .from("inventario_transaccion as a")
+    .innerJoin("feria as b", "b.id_feria", "a.id_feria")
+    .innerJoin("productos as c", "a.id_producto", "c.id_productos")
+    .where("fecha_compra", ">=", desde)
+    .andWhere("fecha_compra", "<=", hasta)
+    .groupBy("a.id_feria", "b.nombre_feria")
+    .orderBy("b.nombre_feria", "asc")
+    .then((clientes) => {
+      return clientes;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+const getCantidadClientesByFeria = (id_feria) => {
+  //consulta
+  return database
+    .select("a.id_feria", "b.nombre_feria")
+    .countDistinct("a.id_cliente as clientes")
+    .from("inventario_transaccion as a")
+    .innerJoin("feria as b", "b.id_feria", "a.id_feria")
+    .innerJoin("productos as c", "a.id_producto", "c.id_productos")
+    .where("a.id_feria", "=", id_feria)
+    .groupBy("a.id_feria", "b.nombre_feria")
+    .orderBy("b.nombre_feria", "asc")
+    .then((clientes) => {
+      return clientes;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
+const getCantidadClientesByFeriaByfecha = (id_feria, desde, hasta) => {
+  //consulta
+  return database
+    .select("a.id_feria", "b.nombre_feria")
+    .countDistinct("a.id_cliente as clientes")
+    .from("inventario_transaccion as a")
+    .innerJoin("feria as b", "b.id_feria", "a.id_feria")
+    .innerJoin("productos as c", "a.id_producto", "c.id_productos")
+    .where("fecha_compra", ">=", desde)
+    .andWhere("fecha_compra", "<=", hasta)
+    .andWhere("a.id_feria", "=", id_feria)
+    .groupBy("a.id_feria", "b.nombre_feria")
+    .orderBy("b.nombre_feria", "asc")
+    .then((clientes) => {
+      return clientes;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 //exportacion de funciones verificacion y consulta de data de usuario
 module.exports.getConsumoTotalPorFeria = getConsumoTotalPorFeria;
 module.exports.getConsumoTotalPorFeriaPorFecha = getConsumoTotalPorFeriaPorFecha;
@@ -121,3 +190,8 @@ module.exports.getConsumoByFeria = getConsumoByFeria;
 module.exports.getConsumoByFeriaByFecha = getConsumoByFeriaByFecha;
 module.exports.getAmountofTrans = getAmountofTrans;
 module.exports.getAmountofTransFecha = getAmountofTransFecha;
+
+module.exports.getClientesTotalesPorFeria = getClientesTotalesPorFeria;
+module.exports.getClientesTotalesPorFeriaPorFecha = getClientesTotalesPorFeriaPorFecha;
+module.exports.getCantidadClientesByFeria = getCantidadClientesByFeria;
+module.exports.getCantidadClientesByFeriaByfecha = getCantidadClientesByFeriaByfecha;

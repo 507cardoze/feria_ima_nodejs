@@ -7,8 +7,14 @@ const {
   getConsumoByFeriaByFecha,
   getAmountofTrans,
   getAmountofTransFecha,
+  getClientesTotalesPorFeria,
+  getClientesTotalesPorFeriaPorFecha,
+  getCantidadClientesByFeria,
+  getCantidadClientesByFeriaByfecha,
 } = require("./consultas.model");
 const verify = require("../../verifytoken");
+
+// consumo
 
 router.get("/total-ferias", verify, async (req, res) => {
   const desde = req.query.desde;
@@ -48,6 +54,54 @@ router.get("/total-transacciones", verify, async (req, res) => {
   } else {
     const query = await getAmountofTransFecha(desde, hasta);
     res.status(200).json([query[0].consumo]);
+  }
+});
+
+// clientes
+
+router.get("/total-clientes", async (req, res) => {
+  const desde = req.query.desde;
+  const hasta = req.query.hasta;
+
+  if (req.query.desde === undefined && req.query.hasta === undefined) {
+    const query = await getClientesTotalesPorFeria();
+    res.status(200).json(query);
+  } else {
+    const query = await getClientesTotalesPorFeriaPorFecha(desde, hasta);
+    res.status(200).json(query);
+  }
+});
+
+router.get("/clientes/:id_feria", async (req, res) => {
+  const { id_feria } = req.params;
+  const desde = req.query.desde;
+  const hasta = req.query.hasta;
+
+  if (req.query.desde === undefined && req.query.hasta === undefined) {
+    const query = await getCantidadClientesByFeria(id_feria);
+    res.status(200).json(query);
+  } else {
+    const query = await getCantidadClientesByFeriaByfecha(
+      id_feria,
+      desde,
+      hasta
+    );
+    res.status(200).json(query);
+  }
+});
+
+router.get("/cantidad-clientes", async (req, res) => {
+  const desde = req.query.desde;
+  const hasta = req.query.hasta;
+
+  if (req.query.desde === undefined && req.query.hasta === undefined) {
+    const query = await getClientesTotalesPorFeria();
+    const cantidad = query.reduce((accum, item) => accum + item.clientes, 0);
+    res.status(200).json([cantidad]);
+  } else {
+    const query = await getClientesTotalesPorFeriaPorFecha(desde, hasta);
+    const cantidad = query.reduce((accum, item) => accum + item.clientes, 0);
+    res.status(200).json([cantidad]);
   }
 });
 
