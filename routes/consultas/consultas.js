@@ -50,7 +50,6 @@ router.get("/total-transacciones", verify, async (req, res) => {
   if (req.query.desde === undefined && req.query.hasta === undefined) {
     const query = await getAmountofTrans();
     res.status(200).json([query[0].consumo]);
-    console.log(query);
   } else {
     const query = await getAmountofTransFecha(desde, hasta);
     res.status(200).json([query[0].consumo]);
