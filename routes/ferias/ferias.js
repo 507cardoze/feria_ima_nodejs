@@ -12,7 +12,7 @@ const {
 } = require("./ferias.model");
 const verify = require("../../verifytoken");
 
-router.get("/filtrada", async (req, res) => {
+router.get("/filtrada", verify, async (req, res) => {
   const page = parseInt(req.query.page);
   const limit = parseInt(req.query.limit);
   try {
@@ -32,7 +32,7 @@ router.get("/filtrada", async (req, res) => {
     res.status(500).json(error);
   }
 });
-router.get("/searchField/:text", async (req, res) => {
+router.get("/searchField/:text", verify, async (req, res) => {
   const { text } = req.params;
   try {
     const query = await getFeriaBySearch(text);
@@ -42,7 +42,7 @@ router.get("/searchField/:text", async (req, res) => {
   }
 });
 
-router.get("/buscar/:id_feria", async (req, res) => {
+router.get("/buscar/:id_feria", verify, async (req, res) => {
   const { id_feria } = req.params;
   try {
     const query = await getFeriaByid(id_feria);

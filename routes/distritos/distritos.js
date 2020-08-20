@@ -16,7 +16,7 @@ const {
 } = require("./distritos.model");
 const verify = require("../../verifytoken");
 
-router.get("/filtrada", async (req, res) => {
+router.get("/filtrada", verify, async (req, res) => {
   const page = parseInt(req.query.page);
   const limit = parseInt(req.query.limit);
   if (req.query.page === undefined && req.query.limit === undefined) {
@@ -33,7 +33,7 @@ router.get("/filtrada", async (req, res) => {
   }
 });
 
-router.get("/searchField/:text", async (req, res) => {
+router.get("/searchField/:text", verify, async (req, res) => {
   const { text } = req.params;
   try {
     const query = await getDistritoBySearch(text);
@@ -43,7 +43,7 @@ router.get("/searchField/:text", async (req, res) => {
   }
 });
 
-router.get("/buscar/:id_distrito", verify, async (req, res) => {
+router.get("/buscar/:id_distrito", verify, verify, async (req, res) => {
   const { id_distrito } = req.params;
   try {
     const query = await getDistritoByid(id_distrito);
@@ -53,15 +53,19 @@ router.get("/buscar/:id_distrito", verify, async (req, res) => {
   }
 });
 
-router.get("/buscarDistritoByProvincia/:id_provincia", async (req, res) => {
-  const { id_provincia } = req.params;
-  try {
-    const query = await getDistritoByIdProvincia(id_provincia);
-    res.status(200).json(query);
-  } catch (error) {
-    res.status(500).json(error);
+router.get(
+  "/buscarDistritoByProvincia/:id_provincia",
+  verify,
+  async (req, res) => {
+    const { id_provincia } = req.params;
+    try {
+      const query = await getDistritoByIdProvincia(id_provincia);
+      res.status(200).json(query);
+    } catch (error) {
+      res.status(500).json(error);
+    }
   }
-});
+);
 
 router.post("/crear", verify, async (req, res) => {
   const { id_provincia, nombre_distrito, estado } = req.body;

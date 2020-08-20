@@ -10,11 +10,11 @@ const loginValidation = (data) => {
       "any.required": `Usuario es un campo requerido.`,
     }),
     Password: Joi.string().min(3).max(25).required().messages({
-      "string.base": `Contrasena no debe ser ir vacio.`,
-      "string.empty": `Contrasena no debe ser ir vacio.`,
-      "string.min": `Contrasena debe ser mayor a {#limit} caracteres.`,
-      "string.max": `Contrasena no debe ser mayor a {#limit} caracteres.`,
-      "any.required": `Contrasena es un campo requerido.`,
+      "string.base": `Contraseña no debe ser ir vacio.`,
+      "string.empty": `Contraseña no debe ser ir vacio.`,
+      "string.min": `Contraseña debe ser mayor a {#limit} caracteres.`,
+      "string.max": `Contraseña no debe ser mayor a {#limit} caracteres.`,
+      "any.required": `Contraseña es un campo requerido.`,
     }),
   });
   return schema.validate(data);

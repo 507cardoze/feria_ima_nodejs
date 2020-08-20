@@ -58,7 +58,7 @@ router.get("/total-transacciones", verify, async (req, res) => {
 
 // clientes
 
-router.get("/total-clientes", async (req, res) => {
+router.get("/total-clientes", verify, async (req, res) => {
   const desde = req.query.desde;
   const hasta = req.query.hasta;
 
@@ -71,7 +71,7 @@ router.get("/total-clientes", async (req, res) => {
   }
 });
 
-router.get("/clientes/:id_feria", async (req, res) => {
+router.get("/clientes/:id_feria", verify, async (req, res) => {
   const { id_feria } = req.params;
   const desde = req.query.desde;
   const hasta = req.query.hasta;
@@ -89,7 +89,7 @@ router.get("/clientes/:id_feria", async (req, res) => {
   }
 });
 
-router.get("/cantidad-clientes", async (req, res) => {
+router.get("/cantidad-clientes", verify, async (req, res) => {
   const desde = req.query.desde;
   const hasta = req.query.hasta;
 

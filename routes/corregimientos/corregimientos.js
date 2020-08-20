@@ -17,7 +17,7 @@ const {
 } = require("./corregimientos.model");
 const verify = require("../../verifytoken");
 
-router.get("/filtrada", async (req, res) => {
+router.get("/filtrada", verify, async (req, res) => {
   const page = parseInt(req.query.page);
   const limit = parseInt(req.query.limit);
 
@@ -39,7 +39,7 @@ router.get("/filtrada", async (req, res) => {
   }
 });
 
-router.get("/searchField/:text", async (req, res) => {
+router.get("/searchField/:text", verify, async (req, res) => {
   const { text } = req.params;
   const { error } = await searchTextValidation(req.params);
   if (error) return res.status(400).json(error.details[0].message);
@@ -51,17 +51,21 @@ router.get("/searchField/:text", async (req, res) => {
   }
 });
 
-router.get("/buscarCorregimientoByDistrito/:id_distrito", async (req, res) => {
-  const { id_distrito } = req.params;
-  try {
-    const query = await getCorregimientoByIdDistrito(id_distrito);
-    res.status(200).json(query);
-  } catch (error) {
-    res.status(400).json(error);
+router.get(
+  "/buscarCorregimientoByDistrito/:id_distrito",
+  verify,
+  async (req, res) => {
+    const { id_distrito } = req.params;
+    try {
+      const query = await getCorregimientoByIdDistrito(id_distrito);
+      res.status(200).json(query);
+    } catch (error) {
+      res.status(400).json(error);
+    }
   }
-});
+);
 
-router.get("/buscar/:id_provincia", async (req, res) => {
+router.get("/buscar/:id_provincia", verify, async (req, res) => {
   const { id_provincia } = req.params;
   try {
     const query = await getCorregimientoByid(id_provincia);

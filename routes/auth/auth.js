@@ -25,9 +25,9 @@ router.post("/login", async (req, res) => {
   //     cedula: userGeneral[0].cedula,
   //   };
   const user = {
-    userName: "stpancar",
-    nombre: "Anthony",
-    apellido: "Cardoze",
+    userName: "admin",
+    nombre: "admin",
+    apellido: "admin",
   };
 
   try {
