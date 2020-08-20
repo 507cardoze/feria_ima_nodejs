@@ -6,6 +6,7 @@ const getProductos = () => {
   return database
     .select("*")
     .from("productos")
+    .where("estado", "=", 1)
     .orderBy("id_productos", "desc")
     .then((productos) => {
       return productos;
@@ -121,6 +122,7 @@ const getProductosBySearch = (text) => {
     .from("productos")
     .orderBy("id_productos", "desc")
     .where("nombre_productos", "like", `%${text}%`)
+    .andWhere("estado", "=", 1)
     .then((data) => {
       return data;
     })

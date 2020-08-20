@@ -12,6 +12,7 @@ const getDistritos = () => {
     )
     .from("distrito as d")
     .innerJoin("provincia as p", "p.id_provincia", "d.id_provincia")
+    .where("d.estado", "=", 1)
     .orderBy("id_distrito", "desc")
     .then((distrito) => {
       return distrito;

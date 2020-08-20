@@ -17,6 +17,7 @@ const getInventarioAjuste = () => {
     )
     .from("inventario_feria_ajuste as i")
     .innerJoin("feria as f", "f.id_feria", "i.id_feria")
+    .where("i.estado", "=", 1)
     .orderBy("i.id", "desc")
     .then((inventarios_ajuste) => {
       return inventarios_ajuste;

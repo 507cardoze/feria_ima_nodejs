@@ -15,6 +15,7 @@ const getCorregimientos = () => {
     .from("corregimiento as c")
     .innerJoin("distrito as d", "d.id_distrito", "c.id_distrito")
     .innerJoin("provincia as p", "p.id_provincia", "c.id_provincia")
+    .where("c.estado", "=", 1)
     .orderBy("id_corregimiento", "desc")
     .then((corregimiento) => {
       return corregimiento;

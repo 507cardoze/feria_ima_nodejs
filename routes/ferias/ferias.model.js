@@ -18,6 +18,7 @@ const getFeria = () => {
     .innerJoin("distrito as d", "d.id_distrito", "f.id_distrito")
     .innerJoin("provincia as p", "p.id_provincia", "f.id_provincia")
     .innerJoin("corregimiento as c", "c.id_corregimiento", "f.id_corregimiento")
+    .where("f.estado", "=", 1)
     .orderBy("id_feria", "desc")
     .then((feria) => {
       return feria;
@@ -193,6 +194,7 @@ const getFeriaBySearch = (text) => {
     .orWhere("f.nombre_feria", "like", `%${text}%`)
     .orWhere("f.descripcion_lugar", "like", `%${text}%`)
     .orWhere("f.descripcion_feria", "like", `%${text}%`)
+    .orWhere("f.estado", "=", 1)
     .then((data) => {
       return data;
     })

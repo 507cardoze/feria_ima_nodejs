@@ -6,6 +6,7 @@ const getProvincias = () => {
   return database
     .select("id_provincia", "id_pais", "nombre_provincia", "estado")
     .from("provincia")
+    .where("estado", "=", 1)
     .orderBy("id_provincia", "desc")
     .then((provincia) => {
       return provincia;
@@ -80,6 +81,7 @@ const getProvinciasBySearch = (text) => {
     .from("provincia")
     .where("nombre_provincia", "like", `%${text}%`)
     .orWhere("id_pais", "like", `%${text}%`)
+    .andWhere("estado", "=", 1)
     .orderBy("id_provincia", "desc")
     .then((data) => {
       return data;

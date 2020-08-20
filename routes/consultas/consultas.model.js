@@ -4,6 +4,28 @@ require("moment/locale/es.js");
 
 //consumo
 
+const getConsumoTotalPorFeriaHoy = () => {
+  console.log(`${moment().format("YYYY-MM-DD")} 00:00:00`);
+  return database
+    .select("f.nombre_feria as feria")
+    .count("t.entregado as consumo")
+    .from("feria as f")
+    .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
+    .where("t.entregado", "=", 1)
+    .whereBetween("t.fecha_compra", [
+      `${moment().format("YYYY-MM-DD")} 00:00:00`,
+      `${moment().format("YYYY-MM-DD")} 11:59:59`,
+    ])
+    .groupBy("f.nombre_feria")
+    .orderBy("f.nombre_feria", "asc")
+    .then((consumos) => {
+      return consumos;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 const getConsumoTotalPorFeria = () => {
   return database
     .select("f.nombre_feria as feria")
@@ -105,6 +127,28 @@ const getAmountofTransFecha = (desde, hasta) => {
 
 //clientes
 
+const getClientesTotalesPorFeriaHoy = () => {
+  //dashboard
+  return database
+    .select("a.id_feria", "b.nombre_feria")
+    .countDistinct("a.id_cliente as clientes")
+    .from("inventario_transaccion as a")
+    .innerJoin("feria as b", "b.id_feria", "a.id_feria")
+    .innerJoin("productos as c", "a.id_producto", "c.id_productos")
+    .whereBetween("a.fecha_compra", [
+      `${moment().format("YYYY-MM-DD")} 00:00:00`,
+      `${moment().format("YYYY-MM-DD")} 11:59:59`,
+    ])
+    .groupBy("a.id_feria", "b.nombre_feria")
+    .orderBy("b.nombre_feria", "asc")
+    .then((clientes) => {
+      return clientes;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 const getClientesTotalesPorFeria = () => {
   //dashboard
   return database
@@ -190,8 +234,10 @@ module.exports.getConsumoByFeria = getConsumoByFeria;
 module.exports.getConsumoByFeriaByFecha = getConsumoByFeriaByFecha;
 module.exports.getAmountofTrans = getAmountofTrans;
 module.exports.getAmountofTransFecha = getAmountofTransFecha;
+module.exports.getConsumoTotalPorFeriaHoy = getConsumoTotalPorFeriaHoy;
 
 module.exports.getClientesTotalesPorFeria = getClientesTotalesPorFeria;
 module.exports.getClientesTotalesPorFeriaPorFecha = getClientesTotalesPorFeriaPorFecha;
 module.exports.getCantidadClientesByFeria = getCantidadClientesByFeria;
 module.exports.getCantidadClientesByFeriaByfecha = getCantidadClientesByFeriaByfecha;
+module.exports.getClientesTotalesPorFeriaHoy = getClientesTotalesPorFeriaHoy;

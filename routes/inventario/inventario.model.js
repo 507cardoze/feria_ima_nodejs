@@ -34,6 +34,7 @@ const getInventario = () => {
     .innerJoin("corregimiento as c", "c.id_corregimiento", "i.id_corregimiento")
     .innerJoin("feria as f", "f.id_feria", "i.id_feria")
     .innerJoin("productos as pr", "pr.id_productos", "i.id_producto")
+    .where("i.estado", "=", 1)
     .orderBy("i.id_inventario", "desc")
     .then((inventarios) => {
       return inventarios;

@@ -12,6 +12,7 @@ const getPaises = () => {
       "fecha_creacion"
     )
     .from("pais")
+    .where("estado", "=", 1)
     .orderBy("fecha_creacion", "desc")
     .then((paises) => {
       return paises;
@@ -153,6 +154,7 @@ const getPaisBySearch = (text) => {
     .where("id_pais", "like", `%${text}%`)
     .orWhere("nombre_pais", "like", `%${text}%`)
     .orWhere("nombre_nacionalidad", "like", `%${text}%`)
+    .andWhere("estado", "=", 1)
     .orderBy("fecha_creacion", "desc")
     .then((data) => {
       return data;
