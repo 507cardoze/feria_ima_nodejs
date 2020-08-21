@@ -34,8 +34,6 @@ router.get("/total-ferias", async (req, res) => {
   const desde = req.query.desde;
   const hasta = req.query.hasta;
 
-  console.log(desde);
-  console.log(hasta);
   if (req.query.desde === undefined && req.query.hasta === undefined) {
     const query = await getConsumoTotalPorFeria();
     res.status(200).json(query);
@@ -50,25 +48,34 @@ router.get("/feria/:id_feria", verify, async (req, res) => {
   const desde = req.query.desde;
   const hasta = req.query.hasta;
 
-  if (req.query.desde === undefined && req.query.hasta === undefined) {
-    const query = await getConsumoByFeria(id_feria);
-    res.status(200).json(query);
-  } else {
-    const query = await getConsumoByFeriaByFecha(id_feria, desde, hasta);
-    res.status(200).json(query);
+  try {
+    if (req.query.desde === undefined && req.query.hasta === undefined) {
+      const query = await getConsumoByFeria(id_feria);
+      res.status(200).json(query);
+    } else {
+      const query = await getConsumoByFeriaByFecha(id_feria, desde, hasta);
+      res.status(200).json(query);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
   }
 });
 
 router.get("/total-transacciones", verify, async (req, res) => {
   const desde = req.query.desde;
   const hasta = req.query.hasta;
-
-  if (req.query.desde === undefined && req.query.hasta === undefined) {
-    const query = await getAmountofTrans();
-    res.status(200).json([query[0].consumo]);
-  } else {
-    const query = await getAmountofTransFecha(desde, hasta);
-    res.status(200).json([query[0].consumo]);
+  try {
+    if (req.query.desde === undefined && req.query.hasta === undefined) {
+      const query = await getAmountofTrans();
+      res.status(200).json([query[0].consumo]);
+    } else {
+      const query = await getAmountofTransFecha(desde, hasta);
+      res.status(200).json([query[0].consumo]);
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
   }
 });
 

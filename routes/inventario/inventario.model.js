@@ -14,7 +14,6 @@ const getInventario = () => {
       "i.id_producto",
       "i.total_inicial_disponible",
       "i.disponible_real",
-      "i.total_max_diario",
       "i.frecuencia_compra_dias",
       "i.fecha_inicio",
       "i.fecha_fin",
@@ -56,7 +55,6 @@ const getInventarioWithPages = (offset, limit) => {
       "i.id_producto",
       "i.total_inicial_disponible",
       "i.disponible_real",
-      "i.total_max_diario",
       "i.frecuencia_compra_dias",
       "i.fecha_inicio",
       "i.fecha_fin",
@@ -96,7 +94,6 @@ const crearInventario = (
   id_producto,
   total_inicial_disponible,
   disponible_real,
-  total_max_diario,
   frecuencia_compra_dias,
   fecha_inicio,
   fecha_fin,
@@ -114,7 +111,6 @@ const crearInventario = (
       id_producto: id_producto,
       total_inicial_disponible: total_inicial_disponible,
       disponible_real: disponible_real,
-      total_max_diario: total_max_diario,
       frecuencia_compra_dias: frecuencia_compra_dias,
       fecha_inicio: fecha_inicio,
       fecha_fin: fecha_fin,
@@ -143,7 +139,6 @@ const getInventarioByid = (id_inventario) => {
       "i.id_producto",
       "i.total_inicial_disponible",
       "i.disponible_real",
-      "i.total_max_diario",
       "i.frecuencia_compra_dias",
       "i.fecha_inicio",
       "i.fecha_fin",
@@ -181,7 +176,6 @@ const updateInventario = (
   id_producto,
   total_inicial_disponible,
   disponible_real,
-  total_max_diario,
   frecuencia_compra_dias,
   fecha_inicio,
   fecha_fin,
@@ -199,7 +193,6 @@ const updateInventario = (
       id_producto: id_producto,
       total_inicial_disponible: total_inicial_disponible,
       disponible_real: disponible_real,
-      total_max_diario: total_max_diario,
       frecuencia_compra_dias: frecuencia_compra_dias,
       fecha_inicio: fecha_inicio,
       fecha_fin: fecha_fin,
@@ -292,7 +285,6 @@ const getInventarioBySearch = (text) => {
       "i.id_producto",
       "i.total_inicial_disponible",
       "i.disponible_real",
-      "i.total_max_diario",
       "i.frecuencia_compra_dias",
       "i.fecha_inicio",
       "i.fecha_fin",
@@ -336,7 +328,6 @@ const getInventarioByMeta = (
   id_producto,
   total_inicial_disponible,
   disponible_real,
-  total_max_diario,
   frecuencia_compra_dias,
   fecha_inicio,
   fecha_fin
@@ -352,7 +343,6 @@ const getInventarioByMeta = (
     .andWhere("id_producto", "=", id_producto)
     .andWhere("total_inicial_disponible", "=", total_inicial_disponible)
     .andWhere("disponible_real", "=", disponible_real)
-    .andWhere("total_max_diario", "=", total_max_diario)
     .andWhere("frecuencia_compra_dias", "=", frecuencia_compra_dias)
     .andWhere("fecha_inicio", "=", fecha_inicio)
     .andWhere("fecha_fin", "=", fecha_fin)

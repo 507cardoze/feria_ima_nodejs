@@ -58,13 +58,6 @@ const crearInventarioValidation = (data) => {
       "number.max": `Disponible Real no debe ser mayor a {#limit} caracteres.`,
       "any.required": `Disponible Real es un campo requerido.`,
     }),
-    total_max_diario: Joi.number().integer().required().messages({
-      "number.base": `Total máximo diario debe ser de tipo entero.`,
-      "number.empty": `Total máximo diario no debe ser ir vacio.`,
-      "number.min": `Total máximo diario debe ser mayor a {#limit} caracteres.`,
-      "number.max": `Total máximo diario no debe ser mayor a {#limit} caracteres.`,
-      "any.required": `Total máximo diario es un campo requerido.`,
-    }),
     frecuencia_compra_dias: Joi.number().integer().required().messages({
       "number.base": `Frecuencia de compra de debe ser de tipo entero.`,
       "number.empty": `Frecuencia de compra  no debe ser ir vacio.`,
@@ -164,13 +157,6 @@ const updateInventarioValidation = (data) => {
       "number.min": `Disponible Real debe ser mayor a {#limit} caracteres.`,
       "number.max": `Disponible Real no debe ser mayor a {#limit} caracteres.`,
       "any.required": `Disponible Real es un campo requerido.`,
-    }),
-    total_max_diario: Joi.number().integer().required().messages({
-      "number.base": `Total máximo diario debe ser de tipo entero.`,
-      "number.empty": `Total máximo diario no debe ser ir vacio.`,
-      "number.min": `Total máximo diario debe ser mayor a {#limit} caracteres.`,
-      "number.max": `Total máximo diario no debe ser mayor a {#limit} caracteres.`,
-      "any.required": `Total máximo diario es un campo requerido.`,
     }),
     frecuencia_compra_dias: Joi.number().integer().required().messages({
       "number.base": `Frecuencia de compra de debe ser de tipo entero.`,

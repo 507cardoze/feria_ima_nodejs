@@ -50,7 +50,10 @@ const getConsumoTotalPorFeriaPorFecha = (desde, hasta) => {
     .from("feria as f")
     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
     .where("t.entregado", "=", 1)
-    .whereBetween("t.fecha_compra", [desde, hasta])
+    .whereBetween("t.fecha_compra", [
+      `${moment(desde).format("YYYY-MM-DD")} 00:00:00`,
+      `${moment(hasta).format("YYYY-MM-DD")} 11:59:59`,
+    ])
     .groupBy("f.nombre_feria")
     .orderBy("f.nombre_feria", "asc")
     .then((consumos) => {
@@ -75,6 +78,7 @@ const getConsumoByFeria = (id_feria) => {
       return consumos;
     })
     .catch((err) => {
+      console.log(err);
       return err;
     });
 };
@@ -85,7 +89,10 @@ const getConsumoByFeriaByFecha = (id_feria, desde, hasta) => {
     .count("t.entregado as consumo")
     .from("feria as f")
     .leftJoin("inventario_transaccion as t", "t.id_feria", "f.id_feria")
-    .whereBetween("t.fecha_compra", [desde, hasta])
+    .whereBetween("t.fecha_compra", [
+      `${moment(desde).format("YYYY-MM-DD")} 00:00:00`,
+      `${moment(hasta).format("YYYY-MM-DD")} 11:59:59`,
+    ])
     .andWhere("f.id_feria", "=", id_feria)
     .andWhere("t.entregado", "=", 1)
     .groupBy("f.nombre_feria")
@@ -116,7 +123,10 @@ const getAmountofTransFecha = (desde, hasta) => {
     .count("entregado as consumo")
     .from("inventario_transaccion")
     .where("entregado", "=", 1)
-    .whereBetween("fecha_compra", [desde, hasta])
+    .whereBetween("fecha_compra", [
+      `${moment(desde).format("YYYY-MM-DD")} 00:00:00`,
+      `${moment(hasta).format("YYYY-MM-DD")} 11:59:59`,
+    ])
     .then((consumos) => {
       return consumos;
     })
@@ -175,8 +185,10 @@ const getClientesTotalesPorFeriaPorFecha = (desde, hasta) => {
     .from("inventario_transaccion as a")
     .innerJoin("feria as b", "b.id_feria", "a.id_feria")
     .innerJoin("productos as c", "a.id_producto", "c.id_productos")
-    .where("fecha_compra", ">=", desde)
-    .andWhere("fecha_compra", "<=", hasta)
+    .whereBetween("a.fecha_compra", [
+      `${moment(desde).format("YYYY-MM-DD")} 00:00:00`,
+      `${moment(hasta).format("YYYY-MM-DD")} 11:59:59`,
+    ])
     .groupBy("a.id_feria", "b.nombre_feria")
     .orderBy("b.nombre_feria", "asc")
     .then((clientes) => {
@@ -214,8 +226,10 @@ const getCantidadClientesByFeriaByfecha = (id_feria, desde, hasta) => {
     .from("inventario_transaccion as a")
     .innerJoin("feria as b", "b.id_feria", "a.id_feria")
     .innerJoin("productos as c", "a.id_producto", "c.id_productos")
-    .where("fecha_compra", ">=", desde)
-    .andWhere("fecha_compra", "<=", hasta)
+    .whereBetween("a.fecha_compra", [
+      `${moment(desde).format("YYYY-MM-DD")} 00:00:00`,
+      `${moment(hasta).format("YYYY-MM-DD")} 11:59:59`,
+    ])
     .andWhere("a.id_feria", "=", id_feria)
     .groupBy("a.id_feria", "b.nombre_feria")
     .orderBy("b.nombre_feria", "asc")
