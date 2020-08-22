@@ -141,7 +141,7 @@ const getClientesTotalesPorFeriaHoy = () => {
   //dashboard
   return database
     .select("a.id_feria", "b.nombre_feria")
-    .countDistinct("a.id_cliente as clientes")
+    .count("a.id_cliente as clientes")
     .from("inventario_transaccion as a")
     .innerJoin("feria as b", "b.id_feria", "a.id_feria")
     .innerJoin("productos as c", "a.id_producto", "c.id_productos")
@@ -163,7 +163,7 @@ const getClientesTotalesPorFeria = () => {
   //dashboard
   return database
     .select("a.id_feria", "b.nombre_feria")
-    .countDistinct("a.id_cliente as clientes")
+    .count("a.id_cliente as clientes")
     .from("inventario_transaccion as a")
     .innerJoin("feria as b", "b.id_feria", "a.id_feria")
     .innerJoin("productos as c", "a.id_producto", "c.id_productos")
@@ -181,7 +181,7 @@ const getClientesTotalesPorFeriaPorFecha = (desde, hasta) => {
   //consulta
   return database
     .select("a.id_feria", "b.nombre_feria")
-    .countDistinct("a.id_cliente as clientes")
+    .count("a.id_cliente as clientes")
     .from("inventario_transaccion as a")
     .innerJoin("feria as b", "b.id_feria", "a.id_feria")
     .innerJoin("productos as c", "a.id_producto", "c.id_productos")
@@ -203,7 +203,7 @@ const getCantidadClientesByFeria = (id_feria) => {
   //consulta
   return database
     .select("a.id_feria", "b.nombre_feria")
-    .countDistinct("a.id_cliente as clientes")
+    .count("a.id_cliente as clientes")
     .from("inventario_transaccion as a")
     .innerJoin("feria as b", "b.id_feria", "a.id_feria")
     .innerJoin("productos as c", "a.id_producto", "c.id_productos")
@@ -222,7 +222,7 @@ const getCantidadClientesByFeriaByfecha = (id_feria, desde, hasta) => {
   //consulta
   return database
     .select("a.id_feria", "b.nombre_feria")
-    .countDistinct("a.id_cliente as clientes")
+    .count("a.id_cliente as clientes")
     .from("inventario_transaccion as a")
     .innerJoin("feria as b", "b.id_feria", "a.id_feria")
     .innerJoin("productos as c", "a.id_producto", "c.id_productos")
