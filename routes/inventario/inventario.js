@@ -14,8 +14,6 @@ const {
   getInventarioByMeta,
 } = require("./inventario.model");
 const verify = require("../../verifytoken");
-const moment = require("moment");
-require("moment/locale/es.js");
 
 router.get("/filtrada", verify, async (req, res) => {
   const page = parseInt(req.query.page);
@@ -78,6 +76,7 @@ router.post("/crear", verify, async (req, res) => {
   const { error } = await crearInventarioValidation(req.body);
   if (error) return res.status(400).json(error.details[0].message);
 
+  console.log(req.body);
   try {
     const verificacion = await getInventarioByMeta(
       id_pais,

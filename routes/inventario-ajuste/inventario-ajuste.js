@@ -75,16 +75,6 @@ router.post("/crear", verify, async (req, res) => {
   if (error) return res.status(400).json(error.details[0].message);
 
   try {
-    // const verificacion = await getInventarioAjusteByMeta(
-    //   id_inventario,
-    //   id_feria,
-    //   id_tipo_ajuste,
-    //   cantidad_ajuste,
-    //   observacion
-    // );
-    // if (verificacion.length === 1)
-    //   return res.status(400).json("Registro ya existe.");
-
     const inventario = await getInventarioByid(id_inventario);
     if (inventario.length === 0)
       return res.status(400).json("no existe el inventario.");
