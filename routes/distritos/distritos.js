@@ -43,7 +43,7 @@ router.get("/searchField/:text", verify, async (req, res) => {
   }
 });
 
-router.get("/buscar/:id_distrito", verify, verify, async (req, res) => {
+router.get("/buscar/:id_distrito", verify, async (req, res) => {
   const { id_distrito } = req.params;
   try {
     const query = await getDistritoByid(id_distrito);

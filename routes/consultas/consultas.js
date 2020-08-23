@@ -18,19 +18,19 @@ const verify = require("../../verifytoken");
 
 // consumo
 
-router.get("/total-ferias-hoy", async (req, res) => {
+router.get("/total-ferias-hoy", verify, async (req, res) => {
   const query = await getConsumoTotalPorFeriaHoy();
   console.log(query);
   res.status(200).json(query);
 });
 
-router.get("/total-clientes-hoy", async (req, res) => {
+router.get("/total-clientes-hoy", verify, async (req, res) => {
   const query = await getClientesTotalesPorFeriaHoy();
   console.log(query);
   res.status(200).json(query);
 });
 
-router.get("/total-ferias", async (req, res) => {
+router.get("/total-ferias", verify, async (req, res) => {
   const desde = req.query.desde;
   const hasta = req.query.hasta;
 

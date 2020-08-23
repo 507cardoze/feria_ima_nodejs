@@ -86,7 +86,7 @@ router.post("/crear", verify, async (req, res) => {
         id_tipo_ajuste,
         cantidad_ajuste,
         observacion,
-        "ADMIN"
+        req.user.login
       );
       const queryEntrada = await updateInventarioEntrada(
         inventario[0].disponible_real,
@@ -101,7 +101,7 @@ router.post("/crear", verify, async (req, res) => {
         id_tipo_ajuste,
         cantidad_ajuste,
         observacion,
-        "ADMIN"
+        req.user.login
       );
       const querySalida = await updateInventarioSalida(
         inventario[0].disponible_real,

@@ -155,7 +155,6 @@ router.put("/update", verify, async (req, res) => {
 
 router.put("/reset-password", verify, async (req, res) => {
   const { login, password, repeat_password } = req.body;
-  console.log(req.body);
   const { error } = resetValidation(req.body);
   if (error) return res.status(400).json(error.details[0].message);
   if (password !== repeat_password)

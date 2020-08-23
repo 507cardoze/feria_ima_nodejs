@@ -106,7 +106,7 @@ router.post("/crear", verify, async (req, res) => {
       fecha_fin,
       observacion,
       estado,
-      "ADMIN"
+      req.user.login
     );
     res.status(200).json("success");
   } catch (error) {

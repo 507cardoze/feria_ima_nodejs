@@ -68,7 +68,7 @@ router.post("/crear", verify, async (req, res) => {
       id_tipo_ajuste,
       descripcion,
       estado,
-      "ADMIN"
+      req.user.login
     );
     res.status(200).json("success");
   } catch (error) {

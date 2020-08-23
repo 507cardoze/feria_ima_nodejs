@@ -92,7 +92,7 @@ router.post("/crear", verify, async (req, res) => {
       tipo_sangre,
       direccion,
       fecha_expiracion,
-      "ADMIN"
+      req.user.login
     );
     res.status(200).json("success");
   } catch (error) {

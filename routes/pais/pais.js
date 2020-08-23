@@ -62,7 +62,7 @@ router.post("/crear", verify, async (req, res) => {
       pais,
       nacionalidad,
       estado,
-      "ADMIN"
+      req.user.login
     );
     res.status(200).json("success");
   } catch (error) {

@@ -81,7 +81,7 @@ router.post("/crear", verify, async (req, res) => {
       descripcion_lugar,
       descripcion_feria,
       estado,
-      "ADMIN"
+      req.user.login
     );
     res.status(200).json("success");
   } catch (error) {

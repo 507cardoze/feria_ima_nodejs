@@ -75,7 +75,7 @@ router.post("/crear", verify, async (req, res) => {
       nombre_productos,
       frecuencia_compra_dias,
       estado,
-      "ADMIN"
+      req.user.login
     );
     res.status(200).json("success");
   } catch (error) {
