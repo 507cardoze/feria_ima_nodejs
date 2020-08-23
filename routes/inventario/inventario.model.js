@@ -112,12 +112,12 @@ const crearInventario = (
       total_inicial_disponible: total_inicial_disponible,
       disponible_real: disponible_real,
       frecuencia_compra_dias: frecuencia_compra_dias,
-      fecha_inicio: fecha_inicio,
-      fecha_fin: fecha_fin,
+      fecha_inicio: moment(fecha_inicio).utc(-5).format(),
+      fecha_fin: moment(fecha_fin).utc(-5).format(),
       observacion: observacion,
       estado: estado,
       usuario_creacion: user,
-      fecha_creacion: moment().format(),
+      fecha_creacion: moment().utc(-5).format(),
     })
     .then((data) => {
       return data;

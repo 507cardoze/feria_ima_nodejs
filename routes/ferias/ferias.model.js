@@ -75,7 +75,7 @@ const crearFeria = (
       descripcion_feria: descripcion_feria,
       usuario_creacion: user,
       estado: estado,
-      fecha_creacion: moment().format(),
+      fecha_creacion: moment().utc(-5).format(),
     })
     .then((data) => {
       return data;

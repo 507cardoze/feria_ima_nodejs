@@ -72,7 +72,7 @@ const crearPais = (nomesclatura, pais, nacionalidad, estado, username) => {
       nombre_pais: pais,
       nombre_nacionalidad: nacionalidad,
       estado: estado,
-      fecha_creacion: moment().format(),
+      fecha_creacion: moment().utc(-5).format(),
       usuario_creacion: username,
     })
     .then((pais) => {

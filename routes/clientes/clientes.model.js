@@ -49,14 +49,14 @@ const crearClientes = (
       nombre: nombre,
       apellido: apellido,
       genero: genero,
-      fecha_nacimiento: fecha_nacimiento,
+      fecha_nacimiento: moment(fecha_nacimiento).utc(-5).format(),
       nacionalidad: nacionalidad,
       lugar_nacimiento: lugar_nacimiento,
       tipo_sangre: tipo_sangre,
       direccion: direccion,
-      fecha_expiracion: fecha_expiracion,
+      fecha_expiracion: moment(fecha_expiracion).utc(-5).format(),
       usuario_creacion: usuario_creacion,
-      fecha_creacion: moment().format(),
+      fecha_creacion: moment().utc(-5).format(),
     })
     .then((data) => {
       return data;
@@ -98,12 +98,12 @@ const updateTipoAjustes = (
       nombre: nombre,
       apellido: apellido,
       genero: genero,
-      fecha_nacimiento: fecha_nacimiento,
+      fecha_nacimiento: moment(fecha_nacimiento).utc(-5).format(),
       nacionalidad: nacionalidad,
       lugar_nacimiento: lugar_nacimiento,
       tipo_sangre: tipo_sangre,
       direccion: direccion,
-      fecha_expiracion: fecha_expiracion,
+      fecha_expiracion: moment(fecha_expiracion).utc(-5).format(),
     })
     .where("id_cliente", "=", id_cliente)
     .then((data) => {

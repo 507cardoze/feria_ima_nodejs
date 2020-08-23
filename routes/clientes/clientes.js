@@ -14,8 +14,6 @@ const {
   getClientesByMeta,
 } = require("./clientes.model");
 const verify = require("../../verifytoken");
-const moment = require("moment");
-require("moment/locale/es.js");
 
 router.get("/filtrada", verify, async (req, res) => {
   const page = parseInt(req.query.page);

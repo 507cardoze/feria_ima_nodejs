@@ -69,7 +69,7 @@ const crearInventarioAjuste = (
       cantidad_ajuste: cantidad_ajuste,
       observacion: observacion,
       usuario_ajuste: user,
-      fecha_ajuste: moment().format(),
+      fecha_ajuste: moment().utc(-5).format(),
     })
     .then((data) => {
       return data;

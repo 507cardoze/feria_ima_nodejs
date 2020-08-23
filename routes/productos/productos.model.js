@@ -43,7 +43,7 @@ const crearProductos = (
       frecuencia_compra_dias: frecuencia_compra_dias,
       estado: estado,
       usuario_creacion: user,
-      fecha_creacion: moment().format(),
+      fecha_creacion: moment().utc(-5).format(),
     })
     .then((data) => {
       return data;

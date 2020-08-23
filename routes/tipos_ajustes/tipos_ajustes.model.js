@@ -53,7 +53,7 @@ const crearTipoAjustes = (
       id_tipo_ajuste: id_tipo_ajuste,
       descripcion: descripcion,
       usuario_creacion: usuario_creacion,
-      fecha_creacion: moment().format(),
+      fecha_creacion: moment().utc(-5).format(),
       estado: estado,
     })
     .then((data) => {

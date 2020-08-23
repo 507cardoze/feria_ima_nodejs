@@ -1,5 +1,4 @@
 const { database } = require("../../database/database");
-require("moment/locale/es.js");
 
 const getCorregimientos = () => {
   return database

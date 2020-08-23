@@ -2,7 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
+const moment = require("moment");
 require("moment/locale/es.js");
+
+console.log(moment().utc(-5).format(`MMMM Do YYYY, h:mm:ss a`));
 
 //Middlewares
 const app = express();
