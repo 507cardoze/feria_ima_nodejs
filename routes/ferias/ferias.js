@@ -9,6 +9,7 @@ const {
   paginateQueryResults,
   getFeriaBySearch,
   getFeriaByMeta,
+  getFeriaByidProvincia,
 } = require("./ferias.model");
 const verify = require("../../verifytoken");
 
@@ -51,6 +52,17 @@ router.get("/buscar/:id_feria", verify, async (req, res) => {
     res.status(500).json(error);
   }
 });
+
+router.get("/buscarFeria/:id_provincia", verify, async (req, res) => {
+  const { id_provincia } = req.params;
+  try {
+    const query = await getFeriaByidProvincia(id_provincia);
+    res.status(200).json(query);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
 router.post("/crear", verify, async (req, res) => {
   const {
     nombre_feria,

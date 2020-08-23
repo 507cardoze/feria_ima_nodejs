@@ -114,6 +114,35 @@ const getFeriaByid = (id_feria) => {
     });
 };
 
+const getFeriaByidProvincia = (id_provincia) => {
+  return database
+    .select(
+      "f.id_feria",
+      "f.nombre_feria",
+      "p.nombre_provincia",
+      "d.nombre_distrito",
+      "c.nombre_corregimiento",
+      "f.descripcion_lugar",
+      "f.descripcion_feria",
+      "f.estado",
+      "f.id_provincia",
+      "f.id_distrito",
+      "f.id_corregimiento"
+    )
+    .from("feria as f")
+    .innerJoin("distrito as d", "d.id_distrito", "f.id_distrito")
+    .innerJoin("provincia as p", "p.id_provincia", "f.id_provincia")
+    .innerJoin("corregimiento as c", "c.id_corregimiento", "f.id_corregimiento")
+    .where("f.id_provincia", "=", id_provincia)
+    .orderBy("id_feria", "desc")
+    .then((feria) => {
+      return feria;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 const updateFeria = (
   id_feria,
   nombre_feria,
@@ -235,3 +264,4 @@ module.exports.getFeriaWithPages = getFeriaWithPages;
 module.exports.paginateQueryResults = paginateQueryResults;
 module.exports.getFeriaBySearch = getFeriaBySearch;
 module.exports.getFeriaByMeta = getFeriaByMeta;
+module.exports.getFeriaByidProvincia = getFeriaByidProvincia;
