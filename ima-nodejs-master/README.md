@@ -1,2 +1,0 @@
-# ima-nodejs
-ima backend
