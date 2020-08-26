@@ -66,7 +66,7 @@ const paginateQueryResults = async (page, limit, getAll, getWithPages) => {
 
   if (page > 1) {
     results.previous = {
-      page: page,
+      page: page - 1,
       limit: limit,
     };
   }
