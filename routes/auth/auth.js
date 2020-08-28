@@ -19,7 +19,7 @@ const {
 } = require("./auth.model");
 const verify = require("../../verifytoken");
 
-router.get("/filtrada", verify, async (req, res) => {
+router.get("/filtrada", async (req, res) => {
   const page = parseInt(req.query.page);
   const limit = parseInt(req.query.limit);
   if (req.query.page === undefined && req.query.limit === undefined) {
