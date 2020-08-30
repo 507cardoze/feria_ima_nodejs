@@ -58,7 +58,7 @@ router.get("/buscar/:id_productos", verify, async (req, res) => {
   }
 });
 
-router.get("/buscarByFeria/:id_feria", async (req, res) => {
+router.get("/buscarByFeria/:id_feria", verify, async (req, res) => {
   const { id_feria } = req.params;
   try {
     const query = await getProductoByidFeria(id_feria);
