@@ -60,7 +60,6 @@ router.post("/login", async (req, res) => {
   const { UserName, Password } = req.body;
   //validacion de campos del formulario
   const { error } = await loginValidation(req.body);
-  //console.log(error);
   if (error) return res.status(400).json(error.details[0].message);
   //verificacion de cedula en la base de datos
   const user = await getUser(UserName);
