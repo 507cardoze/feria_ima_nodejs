@@ -240,6 +240,30 @@ const getCantidadClientesByFeriaByfecha = (id_feria, desde, hasta) => {
     });
 };
 
+const getDisponibleRealByFeriaByProductos = (
+  id_producto,
+  id_feria,
+  desde,
+  hasta
+) => {
+  return database
+    .select("disponible_real ")
+    .from("inventario_feria")
+    .where("fecha_inicio", "<=", desde)
+    .andWhere("fecha_fin", ">=", hasta)
+    .andWhere("estado", "=", 1)
+    .andWhere("id_feria", "=", id_feria)
+    .andWhere("id_producto", "=", id_producto)
+    .orderBy("id_inventario", "asc")
+    .limit(1)
+    .then((disponible) => {
+      return disponible;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 //exportacion de funciones verificacion y consulta de data de usuario
 module.exports.getConsumoTotalPorFeria = getConsumoTotalPorFeria;
 module.exports.getConsumoTotalPorFeriaPorFecha = getConsumoTotalPorFeriaPorFecha;
@@ -254,3 +278,6 @@ module.exports.getClientesTotalesPorFeriaPorFecha = getClientesTotalesPorFeriaPo
 module.exports.getCantidadClientesByFeria = getCantidadClientesByFeria;
 module.exports.getCantidadClientesByFeriaByfecha = getCantidadClientesByFeriaByfecha;
 module.exports.getClientesTotalesPorFeriaHoy = getClientesTotalesPorFeriaHoy;
+
+//disponible real
+module.exports.getDisponibleRealByFeriaByProductos = getDisponibleRealByFeriaByProductos;
