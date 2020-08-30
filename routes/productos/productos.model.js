@@ -66,6 +66,23 @@ const getProductoByid = (id_productos) => {
     });
 };
 
+const getProductoByidFeria = (id_feria) => {
+  return database
+    .select("i.id_producto", "p.nombre_productos as producto")
+    .from("inventario_feria as i")
+    .innerJoin("productos as p", "p.id_productos", "i.id_producto")
+    .where("i.id_feria", "=", id_feria)
+    .andWhere("p.estado", "=", 1)
+    .andWhere("i.estado", "=", 1)
+    .groupBy("i.id_producto")
+    .then((feria) => {
+      return feria;
+    })
+    .catch((err) => {
+      return err;
+    });
+};
+
 const updateProductos = (
   nombre_productos,
   frecuencia_compra_dias,
@@ -154,3 +171,4 @@ module.exports.updateProductos = updateProductos;
 module.exports.paginateQueryResults = paginateQueryResults;
 module.exports.getProductosBySearch = getProductosBySearch;
 module.exports.getProductosByMeta = getProductosByMeta;
+module.exports.getProductoByidFeria = getProductoByidFeria;

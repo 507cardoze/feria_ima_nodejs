@@ -1,5 +1,4 @@
 const router = require("express").Router();
-const {} = require("./validation");
 const {
   getConsumoTotalPorFeria,
   getConsumoTotalPorFeriaPorFecha,
@@ -13,6 +12,7 @@ const {
   getCantidadClientesByFeriaByfecha,
   getConsumoTotalPorFeriaHoy,
   getClientesTotalesPorFeriaHoy,
+  getDisponibleRealByFeriaByProductos,
 } = require("./consultas.model");
 const verify = require("../../verifytoken");
 
@@ -125,6 +125,22 @@ router.get("/cantidad-clientes", verify, async (req, res) => {
     const cantidad = query.reduce((accum, item) => accum + item.clientes, 0);
     res.status(200).json([cantidad]);
   }
+});
+
+//disponible real
+
+router.get("/disponible-real/:id_feria/:id_producto", async (req, res) => {
+  const { id_feria, id_producto } = req.params;
+  const desde = req.query.desde;
+  const hasta = req.query.hasta;
+
+  const query = await getDisponibleRealByFeriaByProductos(
+    id_producto,
+    id_feria,
+    desde,
+    hasta
+  );
+  res.status(200).json(query);
 });
 
 module.exports = router;

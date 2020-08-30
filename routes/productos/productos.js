@@ -12,10 +12,9 @@ const {
   paginateQueryResults,
   getProductosBySearch,
   getProductosByMeta,
+  getProductoByidFeria,
 } = require("./productos.model");
 const verify = require("../../verifytoken");
-const moment = require("moment");
-require("moment/locale/es.js");
 
 router.get("/filtrada", verify, async (req, res) => {
   const page = parseInt(req.query.page);
@@ -53,6 +52,16 @@ router.get("/buscar/:id_productos", verify, async (req, res) => {
   const { id_productos } = req.params;
   try {
     const query = await getProductoByid(id_productos);
+    res.status(200).json(query);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+router.get("/buscarByFeria/:id_feria", async (req, res) => {
+  const { id_feria } = req.params;
+  try {
+    const query = await getProductoByidFeria(id_feria);
     res.status(200).json(query);
   } catch (error) {
     res.status(500).json(error);
