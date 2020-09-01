@@ -25,7 +25,7 @@ router.get("/filtrada", verify, async (req, res) => {
         page,
         limit,
         getFeria,
-        getFeriaWithPages
+        getFeriaWithPages,
       );
       res.status(200).json(query);
     }
@@ -81,7 +81,7 @@ router.post("/crear", verify, async (req, res) => {
       id_provincia,
       id_distrito,
       id_corregimiento,
-      descripcion_lugar
+      descripcion_lugar,
     );
     if (verificacion.length === 1)
       return res.status(400).json("Registro ya existe.");
@@ -93,7 +93,7 @@ router.post("/crear", verify, async (req, res) => {
       descripcion_lugar,
       descripcion_feria,
       estado,
-      req.user.login
+      req.user.login,
     );
     res.status(200).json("success");
   } catch (error) {
@@ -123,7 +123,7 @@ router.put("/update", verify, async (req, res) => {
       id_corregimiento,
       descripcion_lugar,
       descripcion_feria,
-      estado
+      estado,
     );
     res.status(200).json("success");
   } catch (error) {

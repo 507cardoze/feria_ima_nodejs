@@ -35,7 +35,7 @@ const crearProductos = (
   nombre_productos,
   frecuencia_compra_dias,
   estado,
-  user
+  user,
 ) => {
   return database("productos")
     .insert({
@@ -43,7 +43,7 @@ const crearProductos = (
       frecuencia_compra_dias: frecuencia_compra_dias,
       estado: estado,
       usuario_creacion: user,
-      fecha_creacion: moment().utc(-5).format(),
+      fecha_creacion: moment().format("YYYY-MM-DD HH:mm:ss"),
     })
     .then((data) => {
       return data;
@@ -87,7 +87,7 @@ const updateProductos = (
   nombre_productos,
   frecuencia_compra_dias,
   estado,
-  id_productos
+  id_productos,
 ) => {
   return database("productos")
     .update({

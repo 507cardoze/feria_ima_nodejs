@@ -9,7 +9,7 @@ const getPaises = () => {
       "nombre_pais",
       "nombre_nacionalidad",
       "estado",
-      "fecha_creacion"
+      "fecha_creacion",
     )
     .from("pais")
     .where("estado", "=", 1)
@@ -29,7 +29,7 @@ const getPaisesWithPages = (offset, limit) => {
       "nombre_pais",
       "nombre_nacionalidad",
       "estado",
-      "fecha_creacion"
+      "fecha_creacion",
     )
     .from("pais")
     .limit(limit)
@@ -50,7 +50,7 @@ const getPaisByMeta = (id_pais, nombre_pais, nombre_nacionalidad) => {
       "nombre_pais",
       "nombre_nacionalidad",
       "estado",
-      "fecha_creacion"
+      "fecha_creacion",
     )
     .from("pais")
     .where("id_pais", "=", id_pais)
@@ -72,7 +72,7 @@ const crearPais = (nomesclatura, pais, nacionalidad, estado, username) => {
       nombre_pais: pais,
       nombre_nacionalidad: nacionalidad,
       estado: estado,
-      fecha_creacion: moment().utc(-5).format(),
+      fecha_creacion: moment().format("YYYY-MM-DD HH:mm:ss"),
       usuario_creacion: username,
     })
     .then((pais) => {
@@ -148,7 +148,7 @@ const getPaisBySearch = (text) => {
       "nombre_pais",
       "nombre_nacionalidad",
       "estado",
-      "fecha_creacion"
+      "fecha_creacion",
     )
     .from("pais")
     .where("id_pais", "like", `%${text}%`)

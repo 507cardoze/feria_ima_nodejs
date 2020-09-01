@@ -12,7 +12,7 @@ const getFeria = () => {
       "c.nombre_corregimiento",
       "f.descripcion_lugar",
       "f.descripcion_feria",
-      "f.estado"
+      "f.estado",
     )
     .from("feria as f")
     .innerJoin("distrito as d", "d.id_distrito", "f.id_distrito")
@@ -38,7 +38,7 @@ const getFeriaWithPages = (offset, limit) => {
       "c.nombre_corregimiento",
       "f.descripcion_lugar",
       "f.descripcion_feria",
-      "f.estado"
+      "f.estado",
     )
     .from("feria as f")
     .innerJoin("distrito as d", "d.id_distrito", "f.id_distrito")
@@ -63,7 +63,7 @@ const crearFeria = (
   descripcion_lugar,
   descripcion_feria,
   estado,
-  user
+  user,
 ) => {
   return database("feria")
     .insert({
@@ -75,7 +75,7 @@ const crearFeria = (
       descripcion_feria: descripcion_feria,
       usuario_creacion: user,
       estado: estado,
-      fecha_creacion: moment().utc(-5).format(),
+      fecha_creacion: moment().format("YYYY-MM-DD HH:mm:ss"),
     })
     .then((data) => {
       return data;
@@ -98,7 +98,7 @@ const getFeriaByid = (id_feria) => {
       "f.estado",
       "f.id_provincia",
       "f.id_distrito",
-      "f.id_corregimiento"
+      "f.id_corregimiento",
     )
     .from("feria as f")
     .innerJoin("distrito as d", "d.id_distrito", "f.id_distrito")
@@ -127,7 +127,7 @@ const getFeriaByidProvincia = (id_provincia) => {
       "f.estado",
       "f.id_provincia",
       "f.id_distrito",
-      "f.id_corregimiento"
+      "f.id_corregimiento",
     )
     .from("feria as f")
     .innerJoin("distrito as d", "d.id_distrito", "f.id_distrito")
@@ -151,7 +151,7 @@ const updateFeria = (
   id_corregimiento,
   descripcion_lugar,
   descripcion_feria,
-  estado
+  estado,
 ) => {
   return database("feria")
     .update({
@@ -211,7 +211,7 @@ const getFeriaBySearch = (text) => {
       "c.nombre_corregimiento",
       "f.descripcion_lugar",
       "f.descripcion_feria",
-      "f.estado"
+      "f.estado",
     )
     .from("feria as f")
     .innerJoin("distrito as d", "d.id_distrito", "f.id_distrito")
@@ -237,7 +237,7 @@ const getFeriaByMeta = async (
   id_provincia,
   id_distrito,
   id_corregimiento,
-  descripcion_lugar
+  descripcion_lugar,
 ) => {
   return database
     .select("*")

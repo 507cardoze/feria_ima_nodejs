@@ -13,7 +13,7 @@ const getInventarioAjuste = () => {
       "i.usuario_ajuste",
       "i.fecha_ajuste",
       "f.nombre_feria",
-      "i.observacion"
+      "i.observacion",
     )
     .from("inventario_feria_ajuste as i")
     .innerJoin("feria as f", "f.id_feria", "i.id_feria")
@@ -38,7 +38,7 @@ const getInventarioAjusteWithPages = (offset, limit) => {
       "i.usuario_ajuste",
       "i.fecha_ajuste",
       "f.nombre_feria",
-      "i.observacion"
+      "i.observacion",
     )
     .from("inventario_feria_ajuste as i")
     .innerJoin("feria as f", "f.id_feria", "i.id_feria")
@@ -59,7 +59,7 @@ const crearInventarioAjuste = (
   id_tipo_ajuste,
   cantidad_ajuste,
   observacion,
-  user
+  user,
 ) => {
   return database("inventario_feria_ajuste")
     .insert({
@@ -69,7 +69,7 @@ const crearInventarioAjuste = (
       cantidad_ajuste: cantidad_ajuste,
       observacion: observacion,
       usuario_ajuste: user,
-      fecha_ajuste: moment().utc(-5).format(),
+      fecha_ajuste: moment().utc(-5).format("YYYY-MM-DD HH:mm:ss"),
     })
     .then((data) => {
       return data;
@@ -90,7 +90,7 @@ const getInventarioAjusteByid = (id) => {
       "i.usuario_ajuste",
       "i.fecha_ajuste",
       "f.nombre_feria",
-      "i.observacion"
+      "i.observacion",
     )
     .from("inventario_feria_ajuste as i")
     .innerJoin("feria as f", "f.id_feria", "i.id_feria")
@@ -109,7 +109,7 @@ const updateInventarioAjuste = (
   id_feria,
   id_tipo_ajuste,
   cantidad_ajuste,
-  observacion
+  observacion,
 ) => {
   return database("inventario_feria_ajuste")
     .update({
@@ -168,7 +168,7 @@ const getInventarioAjusteBySearch = (text) => {
       "i.usuario_ajuste",
       "i.fecha_ajuste",
       "f.nombre_feria",
-      "i.observacion"
+      "i.observacion",
     )
     .from("inventario_feria_ajuste as i")
     .innerJoin("feria as f", "f.id_feria", "i.id_feria")
@@ -190,7 +190,7 @@ const getInventarioAjusteByMeta = (
   id_feria,
   id_tipo_ajuste,
   cantidad_ajuste,
-  observacion
+  observacion,
 ) => {
   return database
     .select("*")

@@ -9,7 +9,7 @@ const getTipoAjustes = () => {
       "descripcion",
       "estado",
       "usuario_creacion",
-      "fecha_creacion"
+      "fecha_creacion",
     )
     .from("tipos_ajuste")
     .orderBy("fecha_creacion", "desc")
@@ -28,7 +28,7 @@ const getTipoAjustesWithPages = (offset, limit) => {
       "descripcion",
       "estado",
       "usuario_creacion",
-      "fecha_creacion"
+      "fecha_creacion",
     )
     .from("tipos_ajuste")
     .limit(limit)
@@ -46,14 +46,14 @@ const crearTipoAjustes = (
   id_tipo_ajuste,
   descripcion,
   estado,
-  usuario_creacion
+  usuario_creacion,
 ) => {
   return database("tipos_ajuste")
     .insert({
       id_tipo_ajuste: id_tipo_ajuste,
       descripcion: descripcion,
       usuario_creacion: usuario_creacion,
-      fecha_creacion: moment().utc(-5).format(),
+      fecha_creacion: moment().format("YYYY-MM-DD HH:mm:ss"),
       estado: estado,
     })
     .then((data) => {
@@ -71,7 +71,7 @@ const getTipoAjustesByid = (id_tipo_ajuste) => {
       "descripcion",
       "estado",
       "usuario_creacion",
-      "fecha_creacion"
+      "fecha_creacion",
     )
     .from("tipos_ajuste")
     .orderBy("fecha_creacion", "desc")
@@ -135,7 +135,7 @@ const getTipoAjustesBySearch = (text) => {
       "descripcion",
       "estado",
       "usuario_creacion",
-      "fecha_creacion"
+      "fecha_creacion",
     )
     .from("tipos_ajuste")
     .orderBy("fecha_creacion", "desc")

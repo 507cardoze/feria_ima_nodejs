@@ -41,7 +41,7 @@ const crearClientes = (
   tipo_sangre,
   direccion,
   fecha_expiracion,
-  usuario_creacion
+  usuario_creacion,
 ) => {
   return database("clientes")
     .insert({
@@ -49,14 +49,14 @@ const crearClientes = (
       nombre: nombre,
       apellido: apellido,
       genero: genero,
-      fecha_nacimiento: moment(fecha_nacimiento).utc(-5).format(),
+      fecha_nacimiento: moment(fecha_nacimiento).format("YYYY-MM-DD HH:mm:ss"),
       nacionalidad: nacionalidad,
       lugar_nacimiento: lugar_nacimiento,
       tipo_sangre: tipo_sangre,
       direccion: direccion,
-      fecha_expiracion: moment(fecha_expiracion).utc(-5).format(),
+      fecha_expiracion: moment(fecha_expiracion).format("YYYY-MM-DD HH:mm:ss"),
       usuario_creacion: usuario_creacion,
-      fecha_creacion: moment().utc(-5).format(),
+      fecha_creacion: moment().format("YYYY-MM-DD HH:mm:ss"),
     })
     .then((data) => {
       return data;
@@ -90,7 +90,7 @@ const updateTipoAjustes = (
   tipo_sangre,
   direccion,
   fecha_expiracion,
-  id_cliente
+  id_cliente,
 ) => {
   return database("clientes")
     .update({
@@ -98,12 +98,12 @@ const updateTipoAjustes = (
       nombre: nombre,
       apellido: apellido,
       genero: genero,
-      fecha_nacimiento: moment(fecha_nacimiento).utc(-5).format(),
+      fecha_nacimiento: moment(fecha_nacimiento).format("YYYY-MM-DD HH:mm:ss"),
       nacionalidad: nacionalidad,
       lugar_nacimiento: lugar_nacimiento,
       tipo_sangre: tipo_sangre,
       direccion: direccion,
-      fecha_expiracion: moment(fecha_expiracion).utc(-5).format(),
+      fecha_expiracion: moment(fecha_expiracion).format("YYYY-MM-DD HH:mm:ss"),
     })
     .where("id_cliente", "=", id_cliente)
     .then((data) => {

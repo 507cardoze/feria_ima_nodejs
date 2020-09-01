@@ -25,7 +25,7 @@ const getInventario = () => {
       "d.nombre_distrito",
       "c.nombre_corregimiento",
       "f.nombre_feria",
-      "pr.nombre_productos"
+      "pr.nombre_productos",
     )
     .from("inventario_feria as i")
     .innerJoin("provincia as p", "p.id_provincia", "i.id_provincia")
@@ -66,7 +66,7 @@ const getInventarioWithPages = (offset, limit) => {
       "d.nombre_distrito",
       "c.nombre_corregimiento",
       "f.nombre_feria",
-      "pr.nombre_productos"
+      "pr.nombre_productos",
     )
     .from("inventario_feria as i")
     .innerJoin("provincia as p", "p.id_provincia", "i.id_provincia")
@@ -99,7 +99,7 @@ const crearInventario = (
   fecha_fin,
   observacion,
   estado,
-  user
+  user,
 ) => {
   return database("inventario_feria")
     .insert({
@@ -112,12 +112,12 @@ const crearInventario = (
       total_inicial_disponible: total_inicial_disponible,
       disponible_real: disponible_real,
       frecuencia_compra_dias: frecuencia_compra_dias,
-      fecha_inicio: moment(fecha_inicio).utc(-5).format(),
-      fecha_fin: moment(fecha_fin).utc(-5).format(),
+      fecha_inicio: moment(fecha_inicio).format("YYYY-MM-DD HH:mm:ss"),
+      fecha_fin: moment(fecha_fin).format("YYYY-MM-DD HH:mm:ss"),
       observacion: observacion,
       estado: estado,
       usuario_creacion: user,
-      fecha_creacion: moment().utc(-5).format(),
+      fecha_creacion: moment().format("YYYY-MM-DD HH:mm:ss"),
     })
     .then((data) => {
       return data;
@@ -150,7 +150,7 @@ const getInventarioByid = (id_inventario) => {
       "d.nombre_distrito",
       "c.nombre_corregimiento",
       "f.nombre_feria",
-      "pr.nombre_productos"
+      "pr.nombre_productos",
     )
     .from("inventario_feria as i")
     .innerJoin("provincia as p", "p.id_provincia", "i.id_provincia")
@@ -181,7 +181,7 @@ const updateInventario = (
   fecha_fin,
   observacion,
   estado,
-  id_inventario
+  id_inventario,
 ) => {
   return database("inventario_feria")
     .update({
@@ -194,8 +194,8 @@ const updateInventario = (
       total_inicial_disponible: total_inicial_disponible,
       disponible_real: disponible_real,
       frecuencia_compra_dias: frecuencia_compra_dias,
-      fecha_inicio: fecha_inicio,
-      fecha_fin: fecha_fin,
+      fecha_inicio: moment(fecha_inicio).format("YYYY-MM-DD HH:mm:ss"),
+      fecha_fin: moment(fecha_fin).format("YYYY-MM-DD HH:mm:ss"),
       observacion: observacion,
       estado: estado,
     })
@@ -211,7 +211,7 @@ const updateInventario = (
 const updateInventarioEntrada = (
   disponible_real,
   id_inventario,
-  cantidad_ajuste
+  cantidad_ajuste,
 ) => {
   return database("inventario_feria")
     .update({
@@ -229,7 +229,7 @@ const updateInventarioEntrada = (
 const updateInventarioSalida = (
   disponible_real,
   id_inventario,
-  cantidad_ajuste
+  cantidad_ajuste,
 ) => {
   return database("inventario_feria")
     .update({
@@ -296,7 +296,7 @@ const getInventarioBySearch = (text) => {
       "d.nombre_distrito",
       "c.nombre_corregimiento",
       "f.nombre_feria",
-      "pr.nombre_productos"
+      "pr.nombre_productos",
     )
     .from("inventario_feria as i")
     .innerJoin("provincia as p", "p.id_provincia", "i.id_provincia")
@@ -330,7 +330,7 @@ const getInventarioByMeta = (
   disponible_real,
   frecuencia_compra_dias,
   fecha_inicio,
-  fecha_fin
+  fecha_fin,
 ) => {
   return database
     .select("*")

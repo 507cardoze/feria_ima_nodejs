@@ -28,7 +28,7 @@ router.get("/filtrada", verify, async (req, res) => {
         page,
         limit,
         getInventario,
-        getInventarioWithPages
+        getInventarioWithPages,
       );
       res.status(200).json(query);
     }
@@ -88,7 +88,7 @@ router.post("/crear", verify, async (req, res) => {
       disponible_real,
       frecuencia_compra_dias,
       fecha_inicio,
-      fecha_fin
+      fecha_fin,
     );
     if (verificacion.length === 1)
       return res.status(400).json("Registro ya existe.");
@@ -106,7 +106,7 @@ router.post("/crear", verify, async (req, res) => {
       fecha_fin,
       observacion,
       estado,
-      req.user.login
+      req.user.login,
     );
     res.status(200).json("success");
   } catch (error) {
@@ -148,7 +148,7 @@ router.put("/update", verify, async (req, res) => {
       fecha_fin,
       observacion,
       estado,
-      id_inventario
+      id_inventario,
     );
     res.status(200).json("success");
   } catch (error) {
